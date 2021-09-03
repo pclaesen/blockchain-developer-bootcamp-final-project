@@ -15,6 +15,7 @@ Banks, payment providers and other actors in the financial world can do a quick 
 1. The business gets registered with the government and bank. A bank account number is issued and provided to the government.
 2. The 3 important actors all know the real bank account number. They log in to a portal and confirm bank account number 098ZYX belongs to company number 123ABC.
 3. When there are 3 different signatures for a given combination, the information is submitted on-chain.
+4. Banks can integrate the data in their payment screens. Before the payment is allowed, a check is made with the on-chain data.
 
 # Ideas / things to add
 
