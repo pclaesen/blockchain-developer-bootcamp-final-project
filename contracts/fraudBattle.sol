@@ -3,7 +3,7 @@ pragma solidity >=0.4.22 <0.9.0;
 
 contract fraudBattle {
   constructor() public {
-    //address _government = 0x... //we'll only use 1 gov. address for the scope of this final project
+    // address government "0x1D119A6929B1FCBaC8BeA4c610998f9Dfcaf184d" public; //we'll only use 1 gov. address for the scope of this final project
   }
 
 
@@ -16,25 +16,29 @@ contract fraudBattle {
     address _addressBus;
     string _name;
     string _bankAccount;
+    string _vatNumber;
   }
 
   //create bank array, other arrays to be added
   Banks[] private bankArray;
-  Businesses[] private busArray;
+  Businesses[] private businesessArray;
 
   function addBankUser(address _address, string memory _name) public {    
     Banks memory banksData = Banks(_address, _name);
     bankArray.push(banksData);
   }
 
-  function submitBusiness(address _address, string memory _name, string memory _bankAccount) public {
-    Businesses memory busData = Businesses(_address, _name, _bankAccount);
-    busArray.push(busData);
+  function addBusiness(address _address, string memory _name, string memory _bankAccount, string memory _vatNumber) public {
+    Businesses memory busData = Businesses(_address, _name, _bankAccount, _vatNumber);
+    businesessArray.push(busData);
   }
 
   //3 parties need to sign a transaction to add the bank account and business name to a new array.
-  //this array can be called with an API call
+  //this public array can be called with an API call
+  function sign() public {
 
+
+  }
 
 
 
