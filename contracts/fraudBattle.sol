@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
+pragma experimental ABIEncoderV2;
 
 contract fraudBattle {
   constructor() public {
@@ -19,6 +20,10 @@ contract fraudBattle {
     string _vatNumber;
   }
 
+  
+
+  
+
   //create bank array, other arrays to be added
   Banks[] private bankArray;
   Businesses[] private businesessArray;
@@ -35,7 +40,13 @@ contract fraudBattle {
 
   //3 parties need to sign a transaction to add the bank account and business name to a new array.
   //this public array can be called with an API call
-  function sign() public {
+  function sign(string memory  _vatNumber) public view {
+    uint businessesLength = businesessArray.length;
+    for (uint i = 0; i < businessesLength; i++) {
+      if (_vatNumber == businesessArray._vatNumber) {
+
+      }
+    }
 
 
   }
