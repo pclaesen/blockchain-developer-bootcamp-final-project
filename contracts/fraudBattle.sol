@@ -17,35 +17,42 @@ contract fraudBattle {
     address _addressBus;
     string _name;
     string _bankAccount;
-    string _vatNumber;
+    uint _companyNumber;
+    string _bankName;
   }
 
   
-
-  
-
   //create bank array, other arrays to be added
   Banks[] private bankArray;
-  Businesses[] private businesessArray;
+  Businesses[] private businessesArray;
 
-  function addBankUser(address _address, string memory _name) public {    
-    Banks memory banksData = Banks(_address, _name);
+  modifier bankOnly(address _bankAddress) {
+    for (uint i = 0; i < bankArray.length; i++) {
+      require (bankArray[i]._addressBank == _bankAddress);
+        revert();
+      _;
+    }
+  }
+
+  function addBankUser(address _address, string memory _registeredName) public {    
+    Banks memory banksData = Banks(_address, _registeredName);
     bankArray.push(banksData);
   }
 
-  function addBusiness(address _address, string memory _name, string memory _bankAccount, string memory _vatNumber) public {
-    Businesses memory busData = Businesses(_address, _name, _bankAccount, _vatNumber);
-    businesessArray.push(busData);
+  function addBusiness(address _address, string memory _name, string memory _bankAccount, uint _companyNumber, string memory _bankName) public {
+    Businesses memory busData = Businesses(_address, _name, _bankAccount, _companyNumber, _bankName);
+    businessesArray.push(busData);
   }
 
   //3 parties need to sign a transaction to add the bank account and business name to a new array.
-  //this public array can be called with an API call
-  function sign(string memory  _vatNumber) public view {
-    uint businessesLength = businesessArray.length;
+  //This public array can be called with an API call
+  function bankSignature(uint _providedCompanyNumber, address _providedBankAddress) public view bankOnly(_providedBankAddress) {
+    
+    uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
-      if (_vatNumber == businesessArray._vatNumber) {
+      // if (_vatNumber == businessesArray[i]._vatNumber) {
 
-      }
+      // }
     }
 
 
