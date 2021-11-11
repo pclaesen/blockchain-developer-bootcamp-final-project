@@ -22,12 +22,12 @@ contract fraudBattle {
   }
 
   
-  //create bank array, other arrays to be added
+  
   Banks[] private bankArray;
   Businesses[] private businessesArray;
 
   modifier bankOnly(address _bankAddress) {
-    for (uint i = 0; i < bankArray.length; i++) {
+    for (uint i=0; i < bankArray.length; i++) {
       require (bankArray[i]._addressBank == _bankAddress);
         revert();
       _;
@@ -46,7 +46,7 @@ contract fraudBattle {
 
   //3 parties need to sign a transaction to add the bank account and business name to a new array.
   //This public array can be called with an API call
-  function bankSignature(uint _providedCompanyNumber, address _providedBankAddress) public view bankOnly(_providedBankAddress) {
+  function bankSignature(uint _providedCompanyNumber, address _providedBankAddress) bankOnly(_providedBankAddress) public view {
     
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
