@@ -21,6 +21,14 @@ contract fraudBattle {
     string _bankName;
   }
 
+  struct signedInformation {
+    uint _companyNumberSigned;
+    mapping (uint => uint) txSigned;
+    
+
+
+  }
+
   
   
   Banks[] private bankArray;
@@ -46,10 +54,16 @@ contract fraudBattle {
 
   //3 parties need to sign a transaction to add the bank account and business name to a new array.
   //This public array can be called with an API call
-  function bankSignature(uint _providedCompanyNumber, address _providedBankAddress) bankOnly(_providedBankAddress) public view {
+  function bankSignature(uint _providedCompanyNumber, address _providedBankAddress) bankOnly(_providedBankAddress) public {
     
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
+      if (_providedCompanyNumber == businessesArray[i]._companyNumber) {
+
+      }
+
+
+      
       // if (_vatNumber == businessesArray[i]._vatNumber) {
 
       // }
