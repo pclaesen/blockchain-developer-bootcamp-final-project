@@ -69,7 +69,7 @@ contract fraudBattle is Ownable {
   }
 
 
-  function busSignature(uint _providedCompanyNumber,string memory _providedBankAccount) public {
+  function busSignature(uint _providedCompanyNumber, string memory _providedBankAccount) public {
     
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
@@ -80,14 +80,12 @@ contract fraudBattle is Ownable {
   }
 
   //for the sake of simplicity, we pretend that the contract owner is able to sign as 'the government'
-  function govSignature(uint _providedCompanyNumber) public onlyOwner {
+  function govSignature(uint _providedCompanyNumber,string memory _providedBankAccount) public onlyOwner {
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
-      if (_providedCompanyNumber == businessesArray[i]._companyNumber) {
+      require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)));
         isGovSigned[businessesArray[i]._companyNumber] = true;
       }
-
-    }
 
   }
 
