@@ -3,9 +3,21 @@ pragma solidity >=0.8.0 <0.9.0;
 pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+<<<<<<< HEAD
 contract fraudBattle is Ownable {
   
   
+=======
+contract fraudBattle {
+  
+  address private owner;
+
+  mapping (address => bool) isBank;
+  mapping (address => bool) isBusiness;
+  mapping (uint => bool) isBankSigned;
+  mapping (uint => bool) isBusSigned;
+  mapping (uint => bool) isGovSigned;
+>>>>>>> 515e8b8c28d35c6187de8eb1379f2fbceaf208e6
 
   mapping (address => bool) isBank;
   mapping (string => bool) isBankName;
@@ -14,7 +26,10 @@ contract fraudBattle is Ownable {
   mapping (uint => bool) isBusSigned;
   mapping (uint => bool) isGovSigned;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 515e8b8c28d35c6187de8eb1379f2fbceaf208e6
   struct Banks  {
     address _addressBank;
     string _name;
@@ -30,8 +45,13 @@ contract fraudBattle is Ownable {
 
 
   
+<<<<<<< HEAD
   Banks[] public bankArray;
   Businesses[] public businessesArray;
+=======
+  Banks[] private bankArray;
+  Businesses[] private businessesArray;
+>>>>>>> 515e8b8c28d35c6187de8eb1379f2fbceaf208e6
     
 
   modifier bankOnly(address _bankAddress) {
@@ -40,6 +60,7 @@ contract fraudBattle is Ownable {
     }
   
 
+<<<<<<< HEAD
 
 
   function addBankUser(address _address, string memory _registeredName) public onlyOwner {    
@@ -47,6 +68,17 @@ contract fraudBattle is Ownable {
     bankArray.push(banksData);
     isBank[_address] = true;
     isBankName[_registeredName] = true;
+=======
+  modifier onlyOwner() {
+    require(msg.sender == owner);
+      _;
+  }
+
+  function addBankUser(address _address, string memory _registeredName) onlyOwner public {    
+    Banks memory banksData = Banks(_address, _registeredName);
+    bankArray.push(banksData);
+    isBank[_address] = true;
+>>>>>>> 515e8b8c28d35c6187de8eb1379f2fbceaf208e6
   }
 
   function addBusiness(address _address, string memory _name, string memory _bankAccount, uint _companyNumber, string memory _bankName) public {
@@ -62,6 +94,7 @@ contract fraudBattle is Ownable {
     
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
+<<<<<<< HEAD
       require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)));
         isBankSigned[businessesArray[i]._companyNumber] = true;
      }
@@ -77,6 +110,27 @@ contract fraudBattle is Ownable {
         isBusSigned[businessesArray[i]._companyNumber] = true;
     }
 
+=======
+      if (_providedCompanyNumber == businessesArray[i]._companyNumber) {
+        isBankSigned[businessesArray[i]._companyNumber] = true;
+      }
+
+    }
+
+  }
+
+
+  function busSignature(uint _providedCompanyNumber) public {
+    
+    uint businessesLength = businessesArray.length;
+    for (uint i = 0; i < businessesLength; i++) {
+      if (_providedCompanyNumber == businessesArray[i]._companyNumber && msg.sender == businessesArray[i]._addressBus) {
+        isBusSigned[businessesArray[i]._companyNumber] = true;
+      }
+
+    }
+
+>>>>>>> 515e8b8c28d35c6187de8eb1379f2fbceaf208e6
   }
 
   //for the sake of simplicity, we pretend that the contract owner is able to sign as 'the government'
@@ -106,4 +160,8 @@ contract fraudBattle is Ownable {
   }
 
 //closing brace -> end of contract
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 515e8b8c28d35c6187de8eb1379f2fbceaf208e6
