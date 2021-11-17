@@ -50,7 +50,7 @@ contract fraudBattle is Ownable {
   }
 
   function addBusiness(address _address, string memory _name, string memory _bankAccount, uint _companyNumber, string memory _bankName) public {
-      require (isBankName[_bankName] == true);
+      require (isBankName[_bankName] == true, "Unknown bank name, or bank hasn't been registered yet");
     Businesses memory busData = Businesses(_address, _name, _bankAccount, _companyNumber, _bankName);
     businessesArray.push(busData);
     isBusiness[_address] = true;
