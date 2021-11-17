@@ -11,10 +11,14 @@ contract("fraudBattle", function (/* accounts */) {
     return assert.isTrue(true);
   });
   
-  it("should have a wallet connected"), async function () {
-    const instance = await fraudBattle.deployed();
-    const balance = await instance.getBalance.call(accounts[0]);
-    assert.equal(balance.valueOf(), 1)
+  // it("should have a wallet connected"), async function () {
+  //   const instance = await fraudBattle.deployed();
+  //   const balance = await instance.getBalance.call(accounts[0]);
+  //   assert.equal(balance.valueOf(), 1)
+  // }
+
+  it("a company needs 3 different signatures before the function returns the bank account"), async function(getValidBankAccount) {
+    
   }
 
 
