@@ -62,7 +62,7 @@ contract fraudBattle is Ownable {
     
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
-      require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)));
+      require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)), "Unknown companynumber or bank account");
         isBankSigned[businessesArray[i]._companyNumber] = true;
      }
 
@@ -73,7 +73,7 @@ contract fraudBattle is Ownable {
     
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
-      require (_providedCompanyNumber == businessesArray[i]._companyNumber && msg.sender == businessesArray[i]._addressBus && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)));
+      require (_providedCompanyNumber == businessesArray[i]._companyNumber && msg.sender == businessesArray[i]._addressBus && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)), "Unknown companynumber or bank account");
         isBusSigned[businessesArray[i]._companyNumber] = true;
     }
 
@@ -83,7 +83,7 @@ contract fraudBattle is Ownable {
   function govSignature(uint _providedCompanyNumber,string memory _providedBankAccount) public onlyOwner {
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
-      require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)));
+      require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)), "Unknown companynumber or bank account");
         isGovSigned[businessesArray[i]._companyNumber] = true;
       }
 
