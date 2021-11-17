@@ -3,15 +3,14 @@ pragma solidity >=0.4.22 <0.9.0;
 pragma experimental ABIEncoderV2;
 
 contract fraudBattle {
-  constructor() public {
-    // address government "0x1D119A6929B1FCBaC8BeA4c610998f9Dfcaf184d" public; //we'll only use 1 gov. address for the scope of this final project
-  }
-
+  
   address private owner;
 
   mapping (address => bool) isBank;
   mapping (address => bool) isBusiness;
   mapping (uint => bool) isBankSigned;
+  mapping (uint => bool) isBusSigned;
+  mapping (uint => bool) isGovSigned;
 
 
   struct Banks  {
@@ -27,22 +26,11 @@ contract fraudBattle {
     string _bankName;    
   }
 
-  struct validBusinesses {
-    address _addressBus;
-    string _name;
-    string _bankAccount;
-    uint _companyNumber;
-    string _bankName;   
-  }
 
- 
-
-  
   
   Banks[] private bankArray;
   Businesses[] private businessesArray;
-  validBusinesses[] public validBusinessesArray;
-  
+    
 
   modifier bankOnly(address _bankAddress) {
     require (isBank[msg.sender],"Not a bank");
@@ -74,8 +62,6 @@ contract fraudBattle {
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
       if (_providedCompanyNumber == businessesArray[i]._companyNumber) {
-        validBusinesses memory validBusData = validBusinesses(businessesArray[i]._addressBus, businessesArray[i]._name, businessesArray[i]._bankAccount, businessesArray[i]._companyNumber, businessesArray[i]._bankName);
-        validBusinessesArray.push(validBusData);
         isBankSigned[businessesArray[i]._companyNumber] = true;
       }
 
@@ -83,5 +69,44 @@ contract fraudBattle {
 
   }
 
-//closing brace end of contract
+
+  function busSignature(uint _providedCompanyNumber) public {
+    
+    uint businessesLength = businessesArray.length;
+    for (uint i = 0; i < businessesLength; i++) {
+      if (_providedCompanyNumber == businessesArray[i]._companyNumber && msg.sender == businessesArray[i]._addressBus) {
+        isBusSigned[businessesArray[i]._companyNumber] = true;
+      }
+
+    }
+
+  }
+
+  //for the sake of simplicity, we pretend that the contract owner is able to sign as 'the government'
+  function govSignature(uint _providedCompanyNumber) public onlyOwner {
+    uint businessesLength = businessesArray.length;
+    for (uint i = 0; i < businessesLength; i++) {
+      if (_providedCompanyNumber == businessesArray[i]._companyNumber) {
+        isGovSigned[businessesArray[i]._companyNumber] = true;
+      }
+
+    }
+
+  }
+
+  function getValidBankAccount(uint _providedCompanyNumber) public view returns(string memory _bankAccount ) {
+    uint businessesLength = businessesArray.length;
+    
+    require(isBankSigned[_providedCompanyNumber] == true && isBusSigned[_providedCompanyNumber] == true && isGovSigned[_providedCompanyNumber] == true, "This company number doesn't have 3 different signatures");
+    
+    for (uint i = 0; i < businessesLength; i++) {
+      if (businessesArray[i]._companyNumber == _providedCompanyNumber) {
+        return businessesArray[i]._bankAccount;
+      }
+       
+    }
+
+  }
+
+//closing brace -> end of contract
 }
