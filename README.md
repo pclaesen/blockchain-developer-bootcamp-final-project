@@ -1,7 +1,7 @@
 # Blockchain technology to combat B2B fraud with bank account numbers
 
 This project aims to use blockchain technology to prevent businesses being scammed by false emails, claiming the bank account of 'a supplier' changed.
-It uses the 'everybody lies' principle, where we assume noone can be trusted.
+It uses the 'everybody lies' principle, where we assume no one can be trusted.
 
 The correct bank account number(s) for a company can be broadcasted to the public, by using at least 3 on-chain signatures:
  - The business that holds the bank account
