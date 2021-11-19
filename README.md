@@ -8,7 +8,7 @@ The correct bank account number(s) for a company can be broadcast to the public,
  - The bank
  - The government
 
-Banks, payment providers and other actors in the financial world can do a quick API call to get onchain data. The only thing needed is the company account number (VAT number in Europe for example). Input the VAT number of your supplier, get a list of the correct (verified) bank account numbers with an API call and the payer is absolutely sure he's paying his supplier.
+Banks, payment providers and other actors in the financial world can do a quick API call to get onchain data. The only thing needed is the company account number (VAT number in Europe for example). One can input the VAT number of their supplier to get a list of verified bank account numbers using an API call. This provides peace of mind by ensuring payment is going to the correct supplier.
 
 # Current workflow
 
