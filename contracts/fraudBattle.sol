@@ -37,8 +37,16 @@ contract fraudBattle is Ownable {
     require (isBank[msg.sender],"Not a bank");
       _;
     }
-  
 
+  
+  
+  function getBankArray() public view returns(Banks[] memory) {
+    return bankArray;
+  }
+
+  function getBusinessArray() public view returns(Businesses[] memory) {
+    return businessesArray;
+  }
 
 
   function addBankUser(address _address, string memory _registeredName) public onlyOwner {    
@@ -48,7 +56,7 @@ contract fraudBattle is Ownable {
     isBankName[_registeredName] = true;
   }
 
-  function addBusiness(address _address, string memory _name, string memory _bankAccount, uint _companyNumber, string memory _bankName) public {
+  function addBusiness(address _address, string memory _name, string memory _bankAccount, uint _companyNumber, string memory _bankName) public onlyOwner {
       require (isBankName[_bankName] == true, "Unknown bank name, or bank hasn't been registered yet");
     Businesses memory busData = Businesses(_address, _name, _bankAccount, _companyNumber, _bankName);
     businessesArray.push(busData);
@@ -60,6 +68,7 @@ contract fraudBattle is Ownable {
   function bankSignature(uint _providedCompanyNumber, string memory _providedBankAccount) bankOnly(msg.sender) public {
     
     uint businessesLength = businessesArray.length;
+    
     for (uint i = 0; i < businessesLength; i++) {
       require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)), "Unknown companynumber or bank account");
         isBankSigned[businessesArray[i]._companyNumber] = true;
