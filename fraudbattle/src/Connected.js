@@ -66,6 +66,18 @@ const Connected = () => {
     const[addressBankAddedByOwner, setAddressBankAddedByOwner] = useState('');
     const[userTypeToSign, setUserTypeToSign] = useState('');
 
+    //add business consts:
+    const[businessNumberTempAddedByGov, setBusinessNumberTempAddedByGov] = useState('');
+    const[bankAccountTempAddedByGov, setBankAccountTempAddedByGov] = useState('');
+    const[businessNumberAddedByGov, setBusinessNumberAddedByGov] = useState('');
+    const[bankAccountAddedByGov, setBankAccountAddedByGov] = useState('');
+    const[bankNameTempAddedByGov, setBankNameTempAddedByBank] = useState('');
+    const[bankNameAddedByGov, setBankNameAddedByGov] = useState('');
+    const[addressBusinessTempAddedByGov, setAddressBusinessTempAddedByGov] = useState('');
+    const[addressBusinessAddedByBGov, setAddressBusinessAddedByBGov] = useState('');
+    const[businessNameTemp, setBusinessNameTemp] = useState('');
+    const[businessName, setBusinessName] = useState('');
+
     async function getAccounts() {
         const accounts = await provider.listAccounts();
         let accountTemp = accounts[0];
@@ -99,6 +111,7 @@ const Connected = () => {
         setUserGov(true);
     }
 
+    
     const handleChangeCompanyNumber = event => {
         setCompanyNumberTemp(event.target.value);
     }
@@ -113,6 +126,26 @@ const Connected = () => {
 
     const handleChangeAddressBankAddedByOwner = event => {
         setAddressBankAddedByOwnerTemp(event.target.value);
+    }
+
+    const handleChangeBusinessAddress = event => {
+        setAddressBusinessTempAddedByGov(event.target.value);
+    }
+
+    const handleChangeBusinessNameAddedGov = event => {
+        setBusinessNameTemp(event.target.value);
+    }
+
+    const handleChangeBankAccountAddedGov = event => {
+        setBankAccountTempAddedByGov(event.target.value);
+    }
+
+    const handleChangeBusinessNumberAddedGov = event => {
+        setBusinessNumberTempAddedByGov(event.target.value);
+    }
+
+    const handleChangeBankNameAddedGov = event => {
+        setBankNameTempAddedByBank(event.target.value);
     }
 
     function showUserType() {
@@ -173,6 +206,28 @@ const Connected = () => {
     
       };
 
+      const handleSubmitAddBusiness = event => {
+        if (addressBusinessTempAddedByGov && 
+            businessNameTemp && 
+            bankAccountTempAddedByGov && 
+            businessNumberTempAddedByGov &&
+            bankNameTempAddedByGov ) {
+                setAddressBusinessAddedByBGov(addressBusinessTempAddedByGov);
+                setBusinessName(businessNameTemp);
+                setBankAccountAddedByGov(bankAccountTempAddedByGov);
+                setBusinessNumberAddedByGov(businessNumberTempAddedByGov);
+                setBankNameAddedByGov(bankNameTempAddedByGov);
+            }
+            else {
+                console.log("Not all fields have been filled");
+            }
+        
+        
+        
+        event.preventDefault();
+    
+      };
+
       
 
       async function addBank() { //a bank can only be added by the owner of the contract
@@ -196,12 +251,54 @@ const Connected = () => {
         console.log(showBankArray);
       }
 
+    async function addBusinessAsGovernment() {
+        let contractWithSigner = myContract.connect(signer);
+
+        let businessArrayTemp =await contractWithSigner.getBusinessArray();
+      
+        //get the bank address from the array:
+        let businessValidationArray = [];
+        let addressBusinessLowerCase = JSON.stringify(addressBusinessAddedByBGov.toLowerCase());
+        let companyNumberString = businessNumberAddedByGov.toString();
+        for (var i = 0; i < businessArrayTemp.length; i++) {
+            let addressBusValidation = JSON.stringify((businessArrayTemp[i]._addressBus).toLowerCase());
+            let companyNumberValidation = (((businessArrayTemp[i]._companyNumber).toString())).toLowerCase();
+            console.log(addressBusValidation + " " + companyNumberValidation);
+            businessValidationArray.push({addressBusValidation, companyNumberValidation});
+            
+        }     
+        console.log(addressBusinessLowerCase);
+
+         
+
+        for (var i = 0; i < businessValidationArray.length; i++) {
+            if (businessValidationArray[i].addressBusValidation === addressBusinessLowerCase) {
+                alert("This business has already been added")
+                return;
+            }
+        }
+            
+        let addBusinessResult = await contractWithSigner.addBusiness(addressBusinessAddedByBGov, businessName, bankAccountAddedByGov, businessNumberAddedByGov, bankNameAddedByGov);
+        await addBusinessResult.wait();
+        await provider.waitForTransaction(addBusinessResult.hash);
+        const receipt = await provider.getTransactionReceipt(addBusinessResult.hash);
+        console.log(receipt);
+        alert("Business added, thank you");
+            
+        
+
+        
+        
+        
+
+
+        
+    }
+
     async function signTxBank() { //confirm the business details as a bank
         let contractWithSigner = myContract.connect(signer);
         let bankArrayTemp =await contractWithSigner.getBankArray();
-
-        // await getAccount();
-        
+      
         //get the bank address from the array:
         let bankAddressArray = [];
         for (var i = 0; i < bankArrayTemp.length; i++) {
@@ -229,7 +326,7 @@ const Connected = () => {
         
     }
 
-    async function signTxBusiness() {
+    async function signTxBusiness() { //confirm the business details as a business
         let contractWithSigner = myContract.connect(signer);
         
         let businessArrayTemp = await contractWithSigner.getBusinessArray();
@@ -279,16 +376,23 @@ const Connected = () => {
         
             <div className='bodyDiv'>
                 Wallet connected, thank you.<br />
-                Only the government can add a business with the appropriate records on-chain. To do that, use the form below.<br />
+                Only the government/owner can add a business with the appropriate records on-chain. To do that, use the form below.<br />
                 If you want to confirm existing records as a bank or business, go to section B.<br />
                 <form onSubmit={handleSubmitAddBusiness}>
                 
-                    <input type="text" className="companyAddress" value={companyNumberTemp} placeholder="Insert company number" onChange={handleChangeCompanyNumber} />
-                    <input type="text" className="bankAccount" value={bankAccountTemp} placeholder="Bank account number" onChange={handleChangeBankAccount} />               
-
+                    <input type="text" className="businessAddress" value={addressBusinessTempAddedByGov} placeholder="Business wallet address" onChange={handleChangeBusinessAddress} />
+                    <input type="text" className="bankAccount" value={businessNameTemp} placeholder="Business name" onChange={handleChangeBusinessNameAddedGov} />
+                    <input type="text" className="bankAccount" value={bankAccountTempAddedByGov} placeholder="Bank account number" onChange={handleChangeBankAccountAddedGov} />               
+                    <input type="text" className="bankAccount" value={businessNumberTempAddedByGov} placeholder="Company number" onChange={handleChangeBusinessNumberAddedGov} />
+                    <input type="text" className="bankAccount" value={bankNameTempAddedByGov} placeholder="Bank name" onChange={handleChangeBankNameAddedGov} />                  
+                    
                     <button type="submit">Confirm</button>
 
                 </form>
+                You will add this business: {addressBusinessAddedByBGov}, {businessName}, {bankAccountAddedByGov}, {businessNumberAddedByGov} and {bankNameAddedByGov}.<br />
+                <br />
+                <button className='businessButtonAdd' onClick={addBusinessAsGovernment}>Add this business on-chain</button><br />
+                
 
             
                 <strong>Section B</strong><br />
