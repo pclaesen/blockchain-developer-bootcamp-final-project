@@ -8,14 +8,22 @@ The correct bank account number(s) for a company can be broadcast to the public,
  - The bank
  - The government
 
-Banks, payment providers and other actors in the financial world can do a quick API call to get onchain data. The only thing needed is the company account number (VAT number in Europe for example). One can input the VAT number of their supplier to get a list of verified bank account numbers using an API call. This provides peace of mind by ensuring payment is going to the correct supplier.
+Banks, payment providers and other actors in the financial world can do a quick API call to get onchain data. The only thing needed is the company account number (VAT number in Europe for example). One can input the VAT number of their supplier to get a list of verified bank account numbers using afetch command. This provides peace of mind by ensuring payment is going to the correct supplier.
 
 # Current workflow
 
 1. The business gets registered with the government and bank. A bank account number is issued and provided to the government.
 2. The 3 important actors all know the real bank account number. They log in to a portal and confirm bank account number 098ZYX belongs to company number 123ABC.
-3. When there are 3 different signatures for a given combination, the information is submitted on-chain.
+3. When there are 3 different signatures for a given combination, the information is validated on-chain and the correct bank account number for each business can be retreived with a fetch command.
 4. Banks can integrate the data in their payment screens. Before the payment is allowed, a check is made with the on-chain data.
+
+#How to use this dapp?
+
+0. When testing the contract deployed on Rinkeby, the bank 'HSBC' will already be added. Business ...
+1. Install Metamask2. 
+3. As contract owner, first add a bank.
+4. As government (for the sake of simplicity of this final project, the contract owner also has the role of government), add a business. You will need to insert the bank name from step 1 in order to be able to add the business records.
+5. 
 
 # Ideas / things to add
 
