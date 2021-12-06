@@ -19,11 +19,12 @@ Banks, payment providers and other actors in the financial world can do a quick 
 
 #How to use this dapp?
 
-0. When testing the contract deployed on Rinkeby, the bank 'HSBC' will already be added. Business ...
-1. Install Metamask2. 
-3. As contract owner, first add a bank.
-4. As government (for the sake of simplicity of this final project, the contract owner also has the role of government), add a business. You will need to insert the bank name from step 1 in order to be able to add the business records.
-5. 
+0. When testing the contract deployed on Rinkeby, the bank 'HSBC' will already be added. Business ... for the sake of simplicity of this final project, the contract owner also has the role of government
+1. Install Metamask
+2.  Choose the role of business, confirm your bank account and company number and submit the records/sign the transaction
+3.  Wait for the transaction to complete
+4.  You can now query the on-chain records for the company records you submitted. There will be 3 valid signatures for these records, and the dapp will return these valid records.
+
 
 # Ideas / things to add
 
