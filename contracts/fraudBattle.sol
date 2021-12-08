@@ -2,16 +2,27 @@
 pragma solidity >=0.8.0 <0.9.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ee30f6b8a13a447b292b7d799d27b59fb1ff0b79
 /// @title B2B Fraud Battle
 /// @author pclaesen
 /// @notice Basic functionality works. For this final project, the contract owner also has the role of the government
 /// @dev All function calls are currently implemented without side effects
 /// @custom:experimental This is an experimental contract, do not use in production.
+<<<<<<< HEAD
 contract fraudBattle is Ownable {
   
   // address owner  = msg.sender;
 
+=======
+
+contract fraudBattle is Ownable {
+  
+  
+  
+>>>>>>> ee30f6b8a13a447b292b7d799d27b59fb1ff0b79
   mapping (address => bool) isBank;
   mapping (string => bool) isBankName;
   mapping (address => bool) isBusiness;
@@ -45,6 +56,10 @@ contract fraudBattle is Ownable {
     }
 
   
+<<<<<<< HEAD
+=======
+  
+>>>>>>> ee30f6b8a13a447b292b7d799d27b59fb1ff0b79
   /// @dev Use this to lookup the current banks from the on-chain array.
   /// @return Returns the current banks as an array of objects, added by the contract owner.
   function getBankArray() public view returns(Banks[] memory) {
