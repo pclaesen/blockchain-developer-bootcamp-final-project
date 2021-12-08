@@ -2,9 +2,15 @@
 pragma solidity >=0.8.0 <0.9.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+
+/// @title B2B Fraud Battle
+/// @author pclaesen
+/// @notice Basic functionality works. For this final project, the contract owner also has the role of the government
+/// @dev All function calls are currently implemented without side effects
+/// @custom:experimental This is an experimental contract, do not use in production.
 contract fraudBattle is Ownable {
   
-  
+  // address owner  = msg.sender;
 
   mapping (address => bool) isBank;
   mapping (string => bool) isBankName;
@@ -39,16 +45,19 @@ contract fraudBattle is Ownable {
     }
 
   
-  
+  /// @dev Use this to lookup the current banks from the on-chain array.
+  /// @return Returns the current banks as an array of objects, added by the contract owner.
   function getBankArray() public view returns(Banks[] memory) {
     return bankArray;
   }
 
+  /// @dev Use this to lookup the current businesses from the on-chain array.
+  /// @return Returns the current businesses as an array of objects, added by the government (contract owner for ease of use).
   function getBusinessArray() public view returns(Businesses[] memory) {
     return businessesArray;
   }
 
-
+  
   function addBankUser(address _address, string memory _registeredName) public onlyOwner {    
     Banks memory banksData = Banks(_address, _registeredName);
     bankArray.push(banksData);
@@ -89,12 +98,12 @@ contract fraudBattle is Ownable {
 
   //for the sake of simplicity, we pretend that the contract owner is able to sign as 'the government'
   function govSignature(uint _providedCompanyNumber,string memory _providedBankAccount) public onlyOwner {
-    uint businessesLength = businessesArray.length;
-    for (uint i = 0; i < businessesLength; i++) {
-      require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)), "Unknown companynumber or bank account");
-        isGovSigned[businessesArray[i]._companyNumber] = true;
-      }
-
+      uint businessesLength = businessesArray.length;
+      for (uint i = 0; i < businessesLength; i++) {
+        require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)), "Unknown companynumber or bank account");
+          isGovSigned[businessesArray[i]._companyNumber] = true;
+        }
+    
   }
 
   function getValidBankAccount(uint _providedCompanyNumber) public view returns(string memory _bankAccount ) {

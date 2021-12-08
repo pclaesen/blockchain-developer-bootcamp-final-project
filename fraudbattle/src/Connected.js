@@ -1,36 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import { ethers, BigNumber } from 'ethers';
 import ReactDOM from "react-dom";
 import { fraudBattleAbi } from "./abi/abi";
 
 
-const contractAddress = "0x1395F866d6cf4AD9b767b6b1A0374D036d0513D2";
+const contractAddress = "0x59D5138Cea657343BA7B49738680A59fbC9be907";
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
 const myContract = new ethers.Contract(contractAddress, fraudBattleAbi, signer);
 
+const ShowBankAccount = () => {
+    useEffect(() => {
+        // console.log('test ok');
+    });
 
-// function getAccount() {
-//     const accountResponse = window.ethereum.request({ method: 'eth_requestAccounts' });
-    
-//     return accountResponse
-//       .then(accounts => accounts[0]);
-      
-      
-    
-// }
-
-
-
-
-
-
-
-
-
-
-
+    return <div />;
+};
 
 const Connected = () => {
 
@@ -77,6 +63,11 @@ const Connected = () => {
     const[addressBusinessAddedByBGov, setAddressBusinessAddedByBGov] = useState('');
     const[businessNameTemp, setBusinessNameTemp] = useState('');
     const[businessName, setBusinessName] = useState('');
+
+    //add company number to check verified bank account by all parties
+    const[verifiedCompanyNumberTemp, setVerifiedCompanyNumberTemp] = useState('');
+    const[verifiedCompanyNumber, setVerifiedCompanyNumber] = useState('');
+    const[returnedBankAccount, setReturnedBankAccount] = useState('');
 
     async function getAccounts() {
         const accounts = await provider.listAccounts();
@@ -146,6 +137,10 @@ const Connected = () => {
 
     const handleChangeBankNameAddedGov = event => {
         setBankNameTempAddedByBank(event.target.value);
+    }
+
+    const handleChangeCompanyNumberVerifiedBankAccount = event => {
+        setVerifiedCompanyNumberTemp(event.target.value);
     }
 
     function showUserType() {
@@ -228,6 +223,22 @@ const Connected = () => {
     
       };
 
+      const handleSubmitVerifiedBankAccount = event => {
+        if (verifiedCompanyNumberTemp) {
+            setVerifiedCompanyNumber(verifiedCompanyNumberTemp);
+                
+            }
+            else {
+                console.log("Company number not submitted");
+                alert("Please insert and confirm the company number")
+            }
+        
+        
+        
+        event.preventDefault();
+    
+      };
+
       
 
       async function addBank() { //a bank can only be added by the owner of the contract
@@ -255,11 +266,13 @@ const Connected = () => {
         let contractWithSigner = myContract.connect(signer);
 
         let businessArrayTemp =await contractWithSigner.getBusinessArray();
+        let bankArrayTemp =await contractWithSigner.getBankArray();
       
-        //get the bank address from the array:
+        //get the business address from the array:
         let businessValidationArray = [];
+        let bankNameValidationArray = [];
         let addressBusinessLowerCase = JSON.stringify(addressBusinessAddedByBGov.toLowerCase());
-        let companyNumberString = businessNumberAddedByGov.toString();
+        // let companyNumberString = businessNumberAddedByGov.toString();
         for (var i = 0; i < businessArrayTemp.length; i++) {
             let addressBusValidation = JSON.stringify((businessArrayTemp[i]._addressBus).toLowerCase());
             let companyNumberValidation = (((businessArrayTemp[i]._companyNumber).toString())).toLowerCase();
@@ -267,9 +280,22 @@ const Connected = () => {
             businessValidationArray.push({addressBusValidation, companyNumberValidation});
             
         }     
-        console.log(addressBusinessLowerCase);
+        
+        let bankNameUpperCase = JSON.stringify(bankNameAddedByGov.toUpperCase()); //bank name added front-end
+        for (var i = 0; i < bankArrayTemp.length; i++) {
+            let bankNameValidation = JSON.stringify((bankArrayTemp[i]._name).toUpperCase());
+            // let companyNumberValidation = (((businessArrayTemp[i]._companyNumber).toString())).toLowerCase();
+            // console.log(addressBusValidation + " " + companyNumberValidation);
+            bankNameValidationArray.push(bankNameValidation);
+            
+        }     
 
-         
+        for (var i = 0; i < bankNameValidationArray.length; i++) {
+            if (!bankNameValidationArray.includes(bankNameUpperCase)) {
+                alert("Invalid bank name, or bank hasn't been added yet")
+                return;
+            }
+        }
 
         for (var i = 0; i < businessValidationArray.length; i++) {
             if (businessValidationArray[i].addressBusValidation === addressBusinessLowerCase) {
@@ -327,8 +353,7 @@ const Connected = () => {
     }
 
     async function signTxBusiness() { //confirm the business details as a business
-        let contractWithSigner = myContract.connect(signer);
-        
+        let contractWithSigner = myContract.connect(signer);        
         let businessArrayTemp = await contractWithSigner.getBusinessArray();
         //check if business already exists in array:
         if (businessArrayTemp.includes(companyNumber && bankAccount)) {
@@ -341,21 +366,50 @@ const Connected = () => {
 
     }
 
+    async function signTxGovernment() { //confirm the business details as the government
+        console.log("Your account is " + account);
+        let contractWithSigner = myContract.connect(signer);        
+        let businessArrayTemp = await contractWithSigner.getBusinessArray();
+        //check if business already exists in array:
+        if (businessArrayTemp.includes(companyNumber && bankAccount)) {
+            alert("This data combination has already been added");
+        } else {
+            //sign the transaction and add the data on-chain:
+            let signTxBusinessResult = await contractWithSigner.govSignature(companyNumber, bankAccount);
+                console.log(signTxBusinessResult);
+        }
+
+
+
+    }
+
     function addRecords() {
         if (userBank === true) {
             signTxBank();
         } else if (userBusiness === true) {
             signTxBusiness();
         } else if (userGov === true) {
-            console.log("You will sign as a government");
+            signTxGovernment();
         } else {
             console.log("error addRecords()")
         }
     }
 
+    async function getVerifiedBankAccount() {
+        let contractWithSigner = myContract.connect(signer);
+        let verifiedBankAccount = await contractWithSigner.getValidBankAccount(verifiedCompanyNumber);
+
+        // console.log(verifiedBankAccount); 
+        setReturnedBankAccount(verifiedBankAccount);
+        
+    }
+
 
       
+    const [count, setCount] = useState(0);
+    const updateCount = () => setCount(count + 1);
 
+    
   
       
       
@@ -392,6 +446,8 @@ const Connected = () => {
                 You will add this business: {addressBusinessAddedByBGov}, {businessName}, {bankAccountAddedByGov}, {businessNumberAddedByGov} and {bankNameAddedByGov}.<br />
                 <br />
                 <button className='businessButtonAdd' onClick={addBusinessAsGovernment}>Add this business on-chain</button><br />
+                <br />
+                <br />
                 
 
             
@@ -399,15 +455,11 @@ const Connected = () => {
                 Please identify yourself by selecting one of the 3 options below: <br />
                 
                     
-                    <button className='businessButton' onClick={() => isUserBusiness(true)}>Business</button><br />
-                    <button className='bankButton' onClick={isUserBank}>Bank</button><br />
-                    <button className='governmentButton' onClick={isUserGovernment}>Government</button><br />                                 
-                    <button className='triggerFunctionBasedOnUserBusiness' onClick={showUserType}>Console log usertype</button>
-                
-                
-
-
-            
+                    <button className='businessButton' onClick={() => isUserBusiness(true)}>Business</button>
+                    <button className='bankButton' onClick={isUserBank}>Bank</button>
+                    <button className='governmentButton' onClick={isUserGovernment}>Government</button><br />
+                       
+ 
                 <form onSubmit={handleSubmit}>
                 
                     <input type="text" className="companyNumber" value={companyNumberTemp} placeholder="Insert company number" onChange={handleChangeCompanyNumber} />
@@ -435,32 +487,41 @@ const Connected = () => {
 
                 </form>
             As owner, you will add bank {bankNameAddedByOwner} with address {addressBankAddedByOwner}.<br />
-            Are you sure you want to add this bank?<br />0xd3A0546C4bFaeE184343AAB2b63C2aadE6B9476E<br />
+            Are you sure you want to add this bank?<br />
             <button className='addBankButton' onClick={addBank}>Add bank and sign transaction</button><br />
             <button className='showBankArray' onClick={returnBankArray}>Console log bank array</button><br />
             <button className='showBankArray' onClick={returnBusinessArray}>Console log business array</button><br />
             <br />
             <br /><button className='showBankArray' onClick={signTxBank}>Button to add business as bank</button><br />
+            <br />
+            <br />
+            <br />
+            Check the verified bank account of any business here:<br />
+            <form onSubmit={handleSubmitVerifiedBankAccount}>
+                
+                    <input type="text" className="companyNumber" value={verifiedCompanyNumberTemp} placeholder="Insert company number" onChange={handleChangeCompanyNumberVerifiedBankAccount} />
 
+                    <button type="submit">Confirm the company number</button><br />
+                    <br />
+                    <button className='verifyBankButton' onClick={getVerifiedBankAccount}>Show verified bank account</button><br />
 
-
-
+                </form>
             
 
-
-
-
-            </div>
-             
+             {returnedBankAccount}
+             <ShowBankAccount />
+         </div>
         
         )
 
 
 
-
+        
 
     }
  
 
 }
+
+
 export default Connected;
