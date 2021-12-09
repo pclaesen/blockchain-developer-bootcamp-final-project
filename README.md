@@ -31,12 +31,15 @@ Banks, payment providers and other actors in the financial world can do a quick 
     },
 ```
 5.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
- - a. Owner/government
- - b. HSBC
- - c. ConsenSys
+    -  Owner/government
+    -  HSBC
+    -  ConsenSys
 
-6.  Cd into the `fraudbattle` folder and run `npm start`. 
-7.  Go to the new tab that was just opened, and 
+6.  Copy the wallet address of all 3 accounts to notepad.
+6.  In your Metamask wallet, make sure you are using the 'Owner/government' account.
+7.  Cd into the `fraudbattle` folder and run `npm start`. 
+8.  Go to the new tab that was just opened, and connect your wallet.
+9.  Add a new bank
 6.  Wait for the transaction to complete
 4.  You can now query the on-chain records for the company records you submitted. There will be 3 valid signatures for these records, and the dapp will return these valid records.
 
