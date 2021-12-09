@@ -73,8 +73,8 @@ contract fraudBattle is Ownable {
     isBusiness[_address] = true;
   }
 
-  //3 parties need to sign a transaction to add the bank account and business name to a new array.
-  //This public array can be called with an API call
+  //3 parties need to sign a transaction to add the bank account and business number to a new array.
+  //This public array can be called with a JS call
   function bankSignature(uint _providedCompanyNumber, string memory _providedBankAccount) bankOnly(msg.sender) public {
     
     uint businessesLength = businessesArray.length;
