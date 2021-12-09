@@ -19,10 +19,24 @@ Banks, payment providers and other actors in the financial world can do a quick 
 
 #How to use this dapp?
 
-0. When testing the contract deployed on Rinkeby, the bank 'HSBC' will already be added. Business ... for the sake of simplicity of this final project, the contract owner also has the role of government
-1. Install Metamask
-2.  Choose the role of business, confirm your bank account and company number and submit the records/sign the transaction
-3.  Wait for the transaction to complete
+0.  This dapp can only be fully tested when deploying the contract to your localhost, use Ganache GUI or CLI for this.
+1. Clone this repo and run `npm install` to install all dependencies.
+2.  Install Metamask and log in
+3.  Launch a new workspace on Ganache.
+4.  Make sure to check if Ganache runs on port 8545. If it runs on another port (7545 for example), modify your `truffle-config.js` like so:
+`development: {
+     host: "127.0.0.1",     // Localhost (default: none)
+     port: 7545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
+    },`
+5.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
+ - a. Owner/government
+ - b. HSBC
+ - c. ConsenSys
+
+6.  Cd into the `fraudbattle` folder and run `npm start`. 
+7.  Go to the new tab that was just opened, and 
+6.  Wait for the transaction to complete
 4.  You can now query the on-chain records for the company records you submitted. There will be 3 valid signatures for these records, and the dapp will return these valid records.
 
 
