@@ -24,11 +24,12 @@ Banks, payment providers and other actors in the financial world can do a quick 
 2.  Install Metamask and log in
 3.  Launch a new workspace on Ganache.
 4.  Make sure to check if Ganache runs on port 8545. If it runs on another port (7545 for example), modify your `truffle-config.js` like so:
-`development: {
+```development: {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
-    },`
+    },
+```
 5.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
  - a. Owner/government
  - b. HSBC
