@@ -10,12 +10,12 @@ const signer = provider.getSigner();
 
 const myContract = new ethers.Contract(contractAddress, fraudBattleAbi, signer);
 
-const ShowBankAccount = () => {
+const ShowBankAccount = ({ returnedBankAccount }) => {
     useEffect(() => {
-        // console.log('test ok');
-    });
-
-    return <div />;
+                   
+    },[returnedBankAccount]);
+    
+    return <div>It is safe to use bank account {returnedBankAccount}</div>;
 };
 
 const Connected = () => {
@@ -430,8 +430,10 @@ const Connected = () => {
         
             <div className='bodyDiv'>
                 Wallet connected, thank you.<br />
-                Only the government/owner can add a business with the appropriate records on-chain. To do that, use the form below.<br />
-                If you want to confirm existing records as a bank or business, go to section B.<br />
+                <strong>Section A: Owner/government only</strong><br />
+                <br />
+                Only the government/owner can add a business and a bank with the appropriate records on-chain. To do that, use the forms below.<br />
+                If you want to confirm existing records as the government, a bank or business, go to section B.<br />
                 <form onSubmit={handleSubmitAddBusiness}>
                 
                     <input type="text" className="businessAddress" value={addressBusinessTempAddedByGov} placeholder="Business wallet address" onChange={handleChangeBusinessAddress} />
@@ -441,13 +443,32 @@ const Connected = () => {
                     <input type="text" className="bankAccount" value={bankNameTempAddedByGov} placeholder="Bank name" onChange={handleChangeBankNameAddedGov} />                  
                     
                     <button type="submit">Confirm</button>
+                    
 
                 </form>
+                <br />
                 You will add this business: {addressBusinessAddedByBGov}, {businessName}, {bankAccountAddedByGov}, {businessNumberAddedByGov} and {bankNameAddedByGov}.<br />
                 <br />
                 <button className='businessButtonAdd' onClick={addBusinessAsGovernment}>Add this business on-chain</button><br />
                 <br />
                 <br />
+                Add bank:<br />
+                <form onSubmit={handleSubmitBankOwner}>
+                
+                    <input type="text" className="bankName" value={bankNameAddedByOwnerTemp} placeholder="Insert bank name" onChange={handleChangeBankNameAddedbyOwner} />
+                    <input type="text" className="addressBankAddedByOwner" value={addressBankAddedByOwnerTemp} placeholder="Bank wallet address" onChange={handleChangeAddressBankAddedByOwner} />               
+
+                    <button type="submit">Confirm</button>
+                    
+
+                </form>
+                <br />
+            As owner, you will add bank {bankNameAddedByOwner} with address {addressBankAddedByOwner}.<br />
+            Are you sure you want to add this bank?<br />
+            <button className='addBankButton' onClick={addBank}>Add bank on-chain</button><br />
+            <br />
+            <br />
+
                 
 
             
@@ -476,19 +497,7 @@ const Connected = () => {
             <br />
             <button className='confirmBusinessRecords' onClick={addRecords}>Add records</button>
             <br />
-            Owner only:<br />
-            Add bank:<br />
-            <form onSubmit={handleSubmitBankOwner}>
-                
-                    <input type="text" className="bankName" value={bankNameAddedByOwnerTemp} placeholder="Insert bank name" onChange={handleChangeBankNameAddedbyOwner} />
-                    <input type="text" className="addressBankAddedByOwner" value={addressBankAddedByOwnerTemp} placeholder="Bank wallet address" onChange={handleChangeAddressBankAddedByOwner} />               
-
-                    <button type="submit">Confirm</button>
-
-                </form>
-            As owner, you will add bank {bankNameAddedByOwner} with address {addressBankAddedByOwner}.<br />
-            Are you sure you want to add this bank?<br />
-            <button className='addBankButton' onClick={addBank}>Add bank and sign transaction</button><br />
+            
             <button className='showBankArray' onClick={returnBankArray}>Console log bank array</button><br />
             <button className='showBankArray' onClick={returnBusinessArray}>Console log business array</button><br />
             <br />
@@ -504,12 +513,13 @@ const Connected = () => {
                     <button type="submit">Confirm the company number</button><br />
                     <br />
                     <button className='verifyBankButton' onClick={getVerifiedBankAccount}>Show verified bank account</button><br />
-
-                </form>
+                    
+            </form>
             
-
-             {returnedBankAccount}
-             <ShowBankAccount />
+            {returnedBankAccount.length > 1 && <ShowBankAccount returnedBankAccount={returnedBankAccount} />}
+            
+             
+             
          </div>
         
         )
