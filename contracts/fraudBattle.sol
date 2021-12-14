@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /// @author pclaesen
 /// @notice Basic functionality works. For this final project, the contract owner also has the role of the government
 /// @dev All function calls are currently implemented without side effects
-/// @custom:experimental This is an experimental contract, do not use in production.
+
 
 contract fraudBattle is Ownable {
   

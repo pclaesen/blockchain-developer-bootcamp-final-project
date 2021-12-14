@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { fraudBattleAbi } from "./abi/abi";
 
 
-const contractAddress = "0x59D5138Cea657343BA7B49738680A59fbC9be907";
+const contractAddress = "0x6699C211d91D3Eb599770F8Da8873611760D24f2";
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
@@ -12,10 +12,30 @@ const myContract = new ethers.Contract(contractAddress, fraudBattleAbi, signer);
 
 const ShowBankAccount = ({ returnedBankAccount }) => {
     useEffect(() => {
+               
                    
     },[returnedBankAccount]);
     
     return <div>It is safe to use bank account {returnedBankAccount}</div>;
+};
+
+const ShowAddedBusiness = ({addressBusinessAddedByBGovFinal, businessNameFinal, bankAccountAddedByGovFinal, businessNumberAddedByGovFinal, bankNameAddedByGovFinal}) => {
+    useEffect(() => {
+               
+                   
+    },[addressBusinessAddedByBGovFinal, businessNameFinal, bankAccountAddedByGovFinal, businessNumberAddedByGovFinal, bankNameAddedByGovFinal]);
+    if (addressBusinessAddedByBGovFinal) {
+        return <div>Successfully added a business with these records:<br />
+            - {addressBusinessAddedByBGovFinal}<br />
+            - {businessNameFinal}<br />
+            - {bankAccountAddedByGovFinal}<br />
+            - {businessNumberAddedByGovFinal}<br />
+            - {bankNameAddedByGovFinal}<br />
+                    
+            </div>;
+    } else {
+        return<div></div>
+    }
 };
 
 const Connected = () => {
@@ -63,11 +83,20 @@ const Connected = () => {
     const[addressBusinessAddedByBGov, setAddressBusinessAddedByBGov] = useState('');
     const[businessNameTemp, setBusinessNameTemp] = useState('');
     const[businessName, setBusinessName] = useState('');
+    
 
     //add company number to check verified bank account by all parties
     const[verifiedCompanyNumberTemp, setVerifiedCompanyNumberTemp] = useState('');
     const[verifiedCompanyNumber, setVerifiedCompanyNumber] = useState('');
     const[returnedBankAccount, setReturnedBankAccount] = useState('');
+
+    //final business details when the transaction has been signed
+    const[addressBusinessAddedByBGovFinal, setAddressBusinessAddedByBGovFinal] = useState('');
+    const[businessNameFinal, setBusinessNameFinal] = useState('');
+    const[bankAccountAddedByGovFinal, setBankAccountAddedByGovFinal] = useState('');
+    const[businessNumberAddedByGovFinal, setBusinessNumberAddedByGovFinal] = useState('');
+    const[bankNameAddedByGovFinal, setBankNameAddedByGovFinal] = useState('');
+
 
     async function getAccounts() {
         const accounts = await provider.listAccounts();
@@ -212,9 +241,12 @@ const Connected = () => {
                 setBankAccountAddedByGov(bankAccountTempAddedByGov);
                 setBusinessNumberAddedByGov(businessNumberTempAddedByGov);
                 setBankNameAddedByGov(bankNameTempAddedByGov);
+                
+                
             }
+            
             else {
-                console.log("Not all fields have been filled");
+                alert("Not all fields have been filled");
             }
         
         
@@ -276,7 +308,6 @@ const Connected = () => {
         for (var i = 0; i < businessArrayTemp.length; i++) {
             let addressBusValidation = JSON.stringify((businessArrayTemp[i]._addressBus).toLowerCase());
             let companyNumberValidation = (((businessArrayTemp[i]._companyNumber).toString())).toLowerCase();
-            console.log(addressBusValidation + " " + companyNumberValidation);
             businessValidationArray.push({addressBusValidation, companyNumberValidation});
             
         }     
@@ -310,6 +341,14 @@ const Connected = () => {
         const receipt = await provider.getTransactionReceipt(addBusinessResult.hash);
         console.log(receipt);
         alert("Business added, thank you");
+        if (receipt) {
+            setAddressBusinessAddedByBGovFinal(addressBusinessAddedByBGov);
+            setBusinessNameFinal(businessName);
+            setBankAccountAddedByGovFinal(bankAccountAddedByGov);
+            setBusinessNumberAddedByGovFinal(businessNumberAddedByGov);
+            setBankNameAddedByGovFinal(bankNameAddedByGov);
+
+        }
             
         
 
@@ -403,17 +442,7 @@ const Connected = () => {
         setReturnedBankAccount(verifiedBankAccount);
         
     }
-
-
-      
-    const [count, setCount] = useState(0);
-    const updateCount = () => setCount(count + 1);
-
-    
   
-      
-      
-    
       
 
     if (account.length < 1) {
@@ -427,8 +456,8 @@ const Connected = () => {
     } 
     else {
         return(
-        
-            <div className='bodyDiv'>
+        <>
+            <div className='top'>
                 Wallet connected, thank you.<br />
                 <strong>Section A: Owner/government only</strong><br />
                 <br />
@@ -447,9 +476,11 @@ const Connected = () => {
 
                 </form>
                 <br />
-                You will add this business: {addressBusinessAddedByBGov}, {businessName}, {bankAccountAddedByGov}, {businessNumberAddedByGov} and {bankNameAddedByGov}.<br />
+                 You will add this business: {addressBusinessAddedByBGov}, {businessName}, {bankAccountAddedByGov}, {businessNumberAddedByGov} and {bankNameAddedByGov}.<br />
                 <br />
-                <button className='businessButtonAdd' onClick={addBusinessAsGovernment}>Add this business on-chain</button><br />
+                <button className='businessButtonAdd' onClick={addBusinessAsGovernment}>Add business on-chain</button><br />
+                <ShowAddedBusiness addressBusinessAddedByBGovFinal={addressBusinessAddedByBGovFinal} businessNameFinal={businessNameFinal} bankAccountAddedByGovFinal={bankAccountAddedByGovFinal} businessNumberAddedByGovFinal={businessNumberAddedByGovFinal} bankNameAddedByGovFinal={bankNameAddedByGovFinal}/>
+                {/* addressBusinessAddedByBGov, businessName, bankAccountAddedByGov, businessNumberAddedByGov, bankNameAddedByGov */}
                 <br />
                 <br />
                 Add bank:<br />
@@ -463,13 +494,13 @@ const Connected = () => {
 
                 </form>
                 <br />
-            As owner, you will add bank {bankNameAddedByOwner} with address {addressBankAddedByOwner}.<br />
-            Are you sure you want to add this bank?<br />
-            <button className='addBankButton' onClick={addBank}>Add bank on-chain</button><br />
-            <br />
-            <br />
-
-                
+                As owner, you will add bank {bankNameAddedByOwner} with address {addressBankAddedByOwner}.<br />
+                Are you sure you want to add this bank?<br />
+                <button className='addBankButton' onClick={addBank}>Add bank on-chain</button><br />
+                <br />
+                <br />
+            </div>
+            <div>                
 
             
                 <strong>Section B</strong><br />
@@ -521,7 +552,7 @@ const Connected = () => {
              
              
          </div>
-        
+         </>
         )
 
 
