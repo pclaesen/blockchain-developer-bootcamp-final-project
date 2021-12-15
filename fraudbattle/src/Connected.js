@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { fraudBattleAbi } from "./abi/abi";
 
 
-const contractAddress = "0x6699C211d91D3Eb599770F8Da8873611760D24f2";
+const contractAddress = "0x3bc2a3d03520056aadaAbF23A71183037DE0def1";
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
@@ -222,9 +222,7 @@ const Connected = () => {
             setBankNameAddedByOwner(bankNameAddedByOwnerTemp);
             setAddressBankAddedByOwner(addressBankAddedByOwnerTemp);
 
-        }
-        console.log(bankNameAddedByOwner + " " + addressBankAddedByOwner);
-        
+        }     
         
         event.preventDefault();
     
@@ -462,6 +460,23 @@ const Connected = () => {
                 <br />
                 Only the government/owner can add a business and a bank with the appropriate records on-chain. To do that, use the forms below.<br />
                 If you want to confirm existing records as the government, a bank or business, go to section B.<br />
+                <br />
+                Add bank:<br />
+                <form onSubmit={handleSubmitBankOwner}>
+                
+                    <input type="text" className="bankName" value={bankNameAddedByOwnerTemp} placeholder="Insert bank name" onChange={handleChangeBankNameAddedbyOwner} />
+                    <input type="text" className="addressBankAddedByOwner" value={addressBankAddedByOwnerTemp} placeholder="Bank wallet address" onChange={handleChangeAddressBankAddedByOwner} />               
+
+                    <button type="submit">Confirm</button>
+                    
+
+                </form>
+                <br />
+                As owner, you will add bank {bankNameAddedByOwner} with address {addressBankAddedByOwner}.<br />
+                Are you sure you want to add this bank?<br />
+                <button className='addBankButton' onClick={addBank}>Add bank on-chain</button><br />
+                <br />
+                <br />
                 <form onSubmit={handleSubmitAddBusiness}>
                 
                     <input type="text" className="businessAddress" value={addressBusinessTempAddedByGov} placeholder="Business wallet address" onChange={handleChangeBusinessAddress} />
@@ -482,22 +497,7 @@ const Connected = () => {
                 {/* addressBusinessAddedByBGov, businessName, bankAccountAddedByGov, businessNumberAddedByGov, bankNameAddedByGov */}
                 <br />
                 <br />
-                Add bank:<br />
-                <form onSubmit={handleSubmitBankOwner}>
                 
-                    <input type="text" className="bankName" value={bankNameAddedByOwnerTemp} placeholder="Insert bank name" onChange={handleChangeBankNameAddedbyOwner} />
-                    <input type="text" className="addressBankAddedByOwner" value={addressBankAddedByOwnerTemp} placeholder="Bank wallet address" onChange={handleChangeAddressBankAddedByOwner} />               
-
-                    <button type="submit">Confirm</button>
-                    
-
-                </form>
-                <br />
-                As owner, you will add bank {bankNameAddedByOwner} with address {addressBankAddedByOwner}.<br />
-                Are you sure you want to add this bank?<br />
-                <button className='addBankButton' onClick={addBank}>Add bank on-chain</button><br />
-                <br />
-                <br />
             </div>
             <div>                
 
@@ -531,7 +531,6 @@ const Connected = () => {
             <button className='showBankArray' onClick={returnBankArray}>Console log bank array</button><br />
             <button className='showBankArray' onClick={returnBusinessArray}>Console log business array</button><br />
             <br />
-            <br /><button className='showBankArray' onClick={signTxBank}>Button to add business as bank</button><br />
             <br />
             <br />
             <br />
