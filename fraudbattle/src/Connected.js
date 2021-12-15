@@ -406,7 +406,6 @@ const Connected = () => {
     }
 
     async function signTxGovernment() { //confirm the business details as the government
-        console.log("Your account is " + account);
         let contractWithSigner = myContract.connect(signer);        
         let businessArrayTemp = await contractWithSigner.getBusinessArray();
         //check if business already exists in array:
