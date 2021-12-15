@@ -17,10 +17,14 @@ Banks, payment providers and other actors in the financial world can do a quick 
 3. When there are 3 different signatures for a given combination, the information is validated on-chain and the correct bank account number for each business can be retreived with a fetch command.
 4. Banks can integrate the data in their payment screens. Before the payment is allowed, a check is made with the on-chain data.
 
-#How to use this dapp?
+# General remarks:
+- This dapp can only be fully tested when deploying the contract to your localhost, use Ganache GUI or CLI for this.
+- The company number can only exists of numbers (uint).
+- All names should be entered in capital letters (see NatSpec information in the .sol file).
 
-0.  This dapp can only be fully tested when deploying the contract to your localhost, use Ganache GUI or CLI for this.
-1. Clone this repo and run `npm install` to install all dependencies.
+# How to use this dapp?
+
+1.  Clone this repo and run `npm install` to install all dependencies.
 2.  Install Metamask and log in
 3.  Launch a new workspace on Ganache.
 4.  Make sure to check if Ganache runs on port 8545. If it runs on another port (7545 for example), modify your `truffle-config.js` like so:
