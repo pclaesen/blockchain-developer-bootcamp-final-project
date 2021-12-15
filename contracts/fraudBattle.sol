@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
 /// @title B2B Fraud Battle
 /// @author pclaesen
@@ -8,13 +9,19 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /// @dev All function calls are currently implemented without side effects
 
 
-contract fraudBattle is Ownable {
+contract fraudBattle is Ownable, AccessControl {
+
+  constructor () public {
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+  }
   
+  bytes32 public constant government = keccak256("government");
+  bytes32 public constant bank = keccak256("bank");
+  bytes32 public constant business = keccak256("business");
   
-  
-  mapping (address => bool) isBank;
+  // mapping (address => bool) isBank;  
+  // mapping (address => bool) isBusiness;
   mapping (string => bool) isBankName;
-  mapping (address => bool) isBusiness;
   mapping (uint => bool) isBankSigned;
   mapping (uint => bool) isBusSigned;
   mapping (uint => bool) isGovSigned;
@@ -40,7 +47,7 @@ contract fraudBattle is Ownable {
     
 
   modifier bankOnly(address _bankAddress) {
-    require (isBank[msg.sender],"Not a bank");
+    require (hasRole(bank, msg.sender),"Not a bank");
       _;
     }
 
@@ -64,7 +71,7 @@ contract fraudBattle is Ownable {
   function addBankUser(address _address, string memory _registeredName) public onlyOwner {    
     Banks memory banksData = Banks(_address, _registeredName);
     bankArray.push(banksData);
-    isBank[_address] = true;
+    grantRole(bank, _address);
     isBankName[_registeredName] = true;
   }
 
@@ -79,7 +86,7 @@ contract fraudBattle is Ownable {
       require (isBankName[_bankName] == true, "Unknown bank name, or bank hasn't been registered yet");
     Businesses memory busData = Businesses(_address, _name, _bankAccount, _companyNumber, _bankName);
     businessesArray.push(busData);
-    isBusiness[_address] = true;
+    grantRole(business, _address);
   }
 
   /// @notice general: The 3 actors need to sign a transaction to add the bank account and business number to a new array. This new public array can be called with a JS call.
