@@ -19,8 +19,6 @@ contract fraudBattle is Ownable, AccessControl {
   bytes32 public constant bank = keccak256("bank");
   bytes32 public constant business = keccak256("business");
   
-  // mapping (address => bool) isBank;  
-  // mapping (address => bool) isBusiness;
   mapping (string => bool) isBankName;
   mapping (uint => bool) isBankSigned;
   mapping (uint => bool) isBusSigned;
@@ -55,19 +53,22 @@ contract fraudBattle is Ownable, AccessControl {
   
   /// @dev Use this to lookup the current banks from the on-chain array.
   /// @return Returns the current banks as an array of objects, added by the contract owner.
+  
   function getBankArray() public view returns(Banks[] memory) {
     return bankArray;
   }
 
   /// @dev Use this to lookup the current businesses from the on-chain array.
   /// @return Returns the current businesses as an array of objects, added by the government (contract owner for ease of use).
+
   function getBusinessArray() public view returns(Businesses[] memory) {
     return businessesArray;
   }
 
-/// @notice This function adds a bank, only the contract owner can call this function.
-/// @param _address: insert the banks wallet address that will be used to sign the company details
-/// @param _registeredName: insert the name in capital letters
+  /// @notice This function adds a bank, only the contract owner can call this function.
+  /// @param _address: insert the banks wallet address that will be used to sign the company details
+
+  /// @param _registeredName: insert the name in capital letters
   function addBankUser(address _address, string memory _registeredName) public onlyOwner {    
     Banks memory banksData = Banks(_address, _registeredName);
     bankArray.push(banksData);
@@ -76,12 +77,13 @@ contract fraudBattle is Ownable, AccessControl {
   }
 
 
-/// @notice This function adds a business, only the contract owner (in the role of government for ease of use) can call this function.
-/// @param _address: insert the business wallet address
-/// @param _name: insert the official company name in capital letters
-/// @param _bankAccount: insert the business' bank account in capital letters (if applicable)
-/// @param _companyNumber: insert the unique company number
-/// @param _bankName: insert the official bank name in capital letters
+  /// @notice This function adds a business, only the contract owner (in the role of government for ease of use) can call this function.
+  /// @param _address: insert the business wallet address
+  /// @param _name: insert the official company name in capital letters
+  /// @param _bankAccount: insert the business' bank account in capital letters (if applicable)
+  /// @param _companyNumber: insert the unique company number
+  /// @param _bankName: insert the official bank name in capital letters
+
   function addBusiness(address _address, string memory _name, string memory _bankAccount, uint _companyNumber, string memory _bankName) public onlyOwner {
       require (isBankName[_bankName] == true, "Unknown bank name, or bank hasn't been registered yet");
     Businesses memory busData = Businesses(_address, _name, _bankAccount, _companyNumber, _bankName);
@@ -94,6 +96,7 @@ contract fraudBattle is Ownable, AccessControl {
   /// @param _providedCompanyNumber insert the official company number
   /// @param _providedBankAccount insert the business' official bank account, make sure to use capital letters if applicable
   /// @dev Only uint is accepted for the _providedCompanyNumber parameter, make sure to limit the input in the fronted for better UX
+
   function bankSignature(uint _providedCompanyNumber, string memory _providedBankAccount) bankOnly(msg.sender) public {
     
     uint businessesLength = businessesArray.length;
@@ -107,10 +110,11 @@ contract fraudBattle is Ownable, AccessControl {
 
 
   /// @notice general: The 3 actors need to sign a transaction to add the bank account and business number to a new array. This new public array can be called with a JS call.
-  /// @notice This function allows the bank to confirm and sign the business' name and bankaccount combination. Only an approved bank wallet address can use this function and sign the transaction. 
+  /// @notice This function allows the business to confirm and sign the business' name and bankaccount combination.
   /// @param _providedCompanyNumber insert the official company number
   /// @param _providedBankAccount insert the business' official bank account, make sure to use capital letters if applicable
   /// @dev Only uint is accepted for the _providedCompanyNumber parameter, make sure to limit the input in the fronted for better UX
+
   function busSignature(uint _providedCompanyNumber, string memory _providedBankAccount) public {
     
     uint businessesLength = businessesArray.length;
@@ -121,7 +125,12 @@ contract fraudBattle is Ownable, AccessControl {
 
   }
 
-  //for the sake of simplicity, we pretend that the contract owner is able to sign as 'the government'
+  /// @notice general: for the sake of simplicity, we pretend that the contract owner is able to sign as 'the government'.
+  /// @notice This function allows the government to confirm and sign the business' name and bankaccount combination.
+  /// @param _providedCompanyNumber insert the official company number
+  /// @param _providedBankAccount insert the business' official bank account, make sure to use capital letters if applicable
+  /// @dev Only uint is accepted for the _providedCompanyNumber parameter, make sure to limit the input in the fronted for better UX
+
   function govSignature(uint _providedCompanyNumber,string memory _providedBankAccount) public onlyOwner {
     uint businessesLength = businessesArray.length;
     for (uint i = 0; i < businessesLength; i++) {
@@ -130,6 +139,10 @@ contract fraudBattle is Ownable, AccessControl {
       }
 
   }
+
+  /// @notice This function checks for 3 different, valid signatures for the business company number and bank account number combination. When the contract detetcs 3 valid signatures, the given bank account for the provided company number is returned.
+  /// @param _providedCompanyNumber insert the official company number
+  /// @dev The function will throw an error (see line 150) when there are no 3 different, valid signatures
 
   function getValidBankAccount(uint _providedCompanyNumber) public view returns(string memory _bankAccount ) {
     uint businessesLength = businessesArray.length;
@@ -145,5 +158,5 @@ contract fraudBattle is Ownable, AccessControl {
 
   }
 
-//closing brace -> end of contract
+
 }
