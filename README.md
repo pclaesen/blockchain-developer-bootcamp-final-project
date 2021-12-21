@@ -10,19 +10,19 @@ The correct bank account number(s) for a company can be broadcast to the public,
 
 Banks, payment providers and other actors in the financial world can do a quick API call to get onchain data. The only thing needed is the company account number (VAT number in Europe for example). One can input the VAT number of their supplier to get a list of verified bank account numbers using afetch command. This provides peace of mind by ensuring payment is going to the correct supplier.
 
-# Current workflow
+## Current workflow
 
 1. The business gets registered with the government and bank. A bank account number is issued and provided to the government.
 2. The 3 important actors all know the real bank account number. They log in to a portal and confirm bank account number 098ZYX belongs to company number 123ABC.
 3. When there are 3 different signatures for a given combination, the information is validated on-chain and the correct bank account number for each business can be retreived with a fetch command.
 4. Banks can integrate the data in their payment screens. Before the payment is allowed, a check is made with the on-chain data.
 
-# General remarks:
+## General remarks:
 - This dapp can only be fully tested when deploying the contract to your localhost, use Ganache GUI or CLI for this.
 - The company number can only exists of numbers (uint).
 - All names should be entered in capital letters (see NatSpec information in the .sol file).
 
-# How to use this dapp?
+## How to use this dapp?
 
 1.  Clone this repo and run `npm install` to install all dependencies.
 2.  Install Metamask and log in
@@ -48,7 +48,10 @@ Banks, payment providers and other actors in the financial world can do a quick 
 4.  You can now query the on-chain records for the company records you submitted. There will be 3 valid signatures for these records, and the dapp will return these valid records.
 
 
-# Ideas / things to add
+## Ideas / things to add
 
  - Multisig wallets
- - Make sure only certain actors can sign in: How will we verify a bank as 'bank actor' in the process, etc.
+ - Ability for end-users to verify the official wallet address of a business.
+
+## Public Ethereum Account
+0xd97fA6CCc45D404fD369D3aDfD440F5e8Ff85477
