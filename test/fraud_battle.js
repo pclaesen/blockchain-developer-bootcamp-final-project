@@ -1,3 +1,5 @@
+const { assert } = require("console");
+
 const fraudBattle = artifacts.require("fraudBattle");
 
 /*
@@ -5,21 +7,24 @@ const fraudBattle = artifacts.require("fraudBattle");
  * Ethereum client
  * See docs: https://www.trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript
  */
-contract("fraudBattle", function (/* accounts */) {
-  it("should assert true", async function () {
-    await fraudBattle.deployed();
-    return assert.isTrue(true);
-  });
-  
-  // it("should have a wallet connected"), async function () {
-  //   const instance = await fraudBattle.deployed();
-  //   const balance = await instance.getBalance.call(accounts[0]);
-  //   assert.equal(balance.valueOf(), 1)
-  // }
+contract("fraudBattle", function (accounts) {
+  it("should be deployed", () => {
+    fraudBattle.deployed;
+    return true;
+  })
 
-  it("a company needs 3 different signatures before the function returns the bank account"), async function(getValidBankAccount) {
+  it("should be able to add a bank user", async () => {   
+    const instance = await fraudBattle.deployed(); 
+    await instance.addBankUser("0x90E26728604380a06Ab009E3E8a8405348410C79", "HSBC");
+    return true;
+  })
+
+  it("should prevent non-contract owners to add a bank user", async () => {
+    var contractOwner = accounts[0];
+    const instance = await fraudBattle.deployed(); 
+    await instance.addBankUser("0x90E26728604380a06Ab009E3E8a8405348410C79", "HSBC"), {from: contractOwner};
     
-  }
-
-
-});
+    return true;
+  })
+  
+})
