@@ -35,17 +35,20 @@ Banks, payment providers and other actors in the financial world can do a quick 
     },
 ```
 5.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
-    -  Owner/government
-    -  HSBC
-    -  ConsenSys
+    -  Owner/government (account 1)
+    -  HSBC (account 2)
+    -  CONSENSYS (account 3)
 
 6.  Copy the wallet address of all 3 accounts to notepad.
-6.  In your Metamask wallet, make sure you are using the 'Owner/government' account.
-7.  Cd into the `fraudbattle` folder and run `npm start`. 
-8.  Go to the new tab that was just opened, and connect your wallet.
-9.  Add a new bank
-6.  Wait for the transaction to complete
-4.  You can now query the on-chain records for the company records you submitted. There will be 3 valid signatures for these records, and the dapp will return these valid records.
+7.  In your Metamask wallet, make sure you are using the 'Owner/government' account.
+8.  Cd into the `fraudbattle` folder and run `npm start`. 
+9.  Go to the new tab that was just opened, and connect your wallet.
+10. Add a new bank called `HSBC` with the appropriate wallet address (account 2) and wait for the transaction to complete.
+11. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details and wait for the transaction to complete.
+12. While still using the owner/government account (account 1), confirm the combination of company number and bank account number of the business you just added.
+13. Switch to the account `HSBC` (account 2) and confirm the combination of company number and bank account number.
+14. Switch to the account `CONSENSYS` (account 3) and confirm the combination of company number and bank account number.
+15. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
 
 ## Ideas / things to add
