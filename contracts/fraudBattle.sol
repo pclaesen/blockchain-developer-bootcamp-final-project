@@ -147,12 +147,15 @@ contract fraudBattle is Ownable, AccessControl {
   function getValidBankAccount(uint _providedCompanyNumber) public view returns(string memory _bankAccount ) {
     uint businessesLength = businessesArray.length;
     
-    require(isBankSigned[_providedCompanyNumber] == true && isBusSigned[_providedCompanyNumber] == true && isGovSigned[_providedCompanyNumber] == true, "This company number doesn't have 3 different signatures");
+    
     
     for (uint i = 0; i < businessesLength; i++) {
       if (businessesArray[i]._companyNumber == _providedCompanyNumber) {
-        return businessesArray[i]._bankAccount;
-      }
+        require(isBankSigned[_providedCompanyNumber] == true && isBusSigned[_providedCompanyNumber] == true && isGovSigned[_providedCompanyNumber] == true, "This company number doesn't have 3 different signatures");
+          return businessesArray[i]._bankAccount;
+      } //else if (businessesArray[i]._companyNumber != _providedCompanyNumber){
+        //revert();
+      //}
        
     }
 
