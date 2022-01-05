@@ -153,9 +153,7 @@ contract fraudBattle is Ownable, AccessControl {
       if (businessesArray[i]._companyNumber == _providedCompanyNumber) {
         require(isBankSigned[_providedCompanyNumber] == true && isBusSigned[_providedCompanyNumber] == true && isGovSigned[_providedCompanyNumber] == true, "This company number doesn't have 3 different signatures");
           return businessesArray[i]._bankAccount;
-      } //else if (businessesArray[i]._companyNumber != _providedCompanyNumber){
-        //revert();
-      //}
+      } 
        
     }
 
