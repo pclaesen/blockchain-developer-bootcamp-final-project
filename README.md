@@ -35,9 +35,9 @@ Banks, payment providers and other actors in the financial world can do a quick 
     },
 ```
 5.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
-    -  Owner/government (account 1)
-    -  HSBC (account 2)
-    -  CONSENSYS (account 3)
+    -  Owner/government (imported account 1)
+    -  HSBC (imported account 2)
+    -  CONSENSYS (imported account 3)
 
 6.  Copy the wallet address of all 3 accounts to notepad.
 7.  In your Metamask wallet, make sure you are using the 'Owner/government' account.
