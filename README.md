@@ -56,11 +56,12 @@ This dapp uses following dependencies:
 13. Go to the new tab that was just opened.
 14. In your Metamask wallet, connect to the `localhost` network, make sure to select the 'Owner/government' account and connect the account to the dapp.
 15. Add a new bank called `HSBC` with the appropriate wallet address (account 2), click the `Confirm` button and after that the grey `Add bank on-chain` button. Wait for the transaction to complete.
-16. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details and wait for the transaction to complete. Make sure to use `HSBC` as bank.
-17. While still using the owner/government account (account 1), confirm the combination of company number and bank account number of the business you just added.
-18. Switch to the account `HSBC` (account 2) and confirm the combination of company number and bank account number.
-19. Switch to the account `CONSENSYS` (account 3) and confirm the combination of company number and bank account number.
-20. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
+16. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details (only numbers for the company number!) and wait for the transaction to complete. Make sure to use `HSBC` as bank.
+17. Go to section B.
+18. While still using the owner/government account (account 1), confirm the combination of company number and bank account number of the business you just added.
+19. Switch to the account `HSBC` (account 2) and confirm the combination of company number and bank account number.
+20. Switch to the account `CONSENSYS` (account 3) and confirm the combination of company number and bank account number.
+21. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
 
 ## Ideas / things to add
