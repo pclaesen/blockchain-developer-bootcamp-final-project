@@ -33,28 +33,32 @@ This dapp uses following dependencies:
 1.  Clone this repo and run `npm install` to install all dependencies.
 2.  Install Metamask and log in
 3.  Launch a new workspace on Ganache.
-4.  Make sure to check if Ganache runs on port 8545. If it runs on another port (7545 for example), modify your `truffle-config.js` like so:
+4.  Create a new `.env` file in the root folder of the project.
+5.  Copy the mnemonic phrase from Ganache and paste it in the `.env` file like so:
+`MNEMONIC = " <insert mnemonic here, do not delete the ""> "`
+6.  Make sure to check if Ganache runs on port 8545. If it runs on another port (7545 for example), modify your `truffle-config.js` like so:
 ```development: {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },
 ```
-5.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
+7.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
     -  Owner/government (imported account 1)
     -  HSBC (imported account 2)
     -  CONSENSYS (imported account 3)
 
-6.  Copy the wallet address of all 3 accounts to notepad.
-7.  In your Metamask wallet, make sure you are using the 'Owner/government' account.
-8.  Cd into the `fraudbattle` folder and run `npm start`. 
-9.  Go to the new tab that was just opened, and connect your wallet.
-10. Add a new bank called `HSBC` with the appropriate wallet address (account 2) and wait for the transaction to complete.
-11. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details and wait for the transaction to complete.
-12. While still using the owner/government account (account 1), confirm the combination of company number and bank account number of the business you just added.
-13. Switch to the account `HSBC` (account 2) and confirm the combination of company number and bank account number.
-14. Switch to the account `CONSENSYS` (account 3) and confirm the combination of company number and bank account number.
-15. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
+8.  Copy the wallet address of all 3 accounts to notepad.
+9.  In your Metamask wallet, make sure you are using the 'Owner/government' account.
+10. Cd into the `fraudbattle` folder and install the necessary dependencies (like React) with `npm install`. 
+11. Start the dapp with `npm start`.
+12.  Go to the new tab that was just opened, and connect your wallet.
+13. Add a new bank called `HSBC` with the appropriate wallet address (account 2) and wait for the transaction to complete.
+14. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details and wait for the transaction to complete.
+15. While still using the owner/government account (account 1), confirm the combination of company number and bank account number of the business you just added.
+16. Switch to the account `HSBC` (account 2) and confirm the combination of company number and bank account number.
+17. Switch to the account `CONSENSYS` (account 3) and confirm the combination of company number and bank account number.
+18. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
 
 ## Ideas / things to add
