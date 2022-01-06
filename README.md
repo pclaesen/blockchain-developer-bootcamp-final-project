@@ -54,7 +54,7 @@ Banks, payment providers and other actors in the financial world can do a quick 
 ## Ideas / things to add
 
  - Multisig wallets
- - Ability for end-users to verify the official wallet address of a business.
+ - Ability for end-users/contracts to verify the official wallet address of a business.
 
 ## Public Ethereum Account
 0xd97fA6CCc45D404fD369D3aDfD440F5e8Ff85477
