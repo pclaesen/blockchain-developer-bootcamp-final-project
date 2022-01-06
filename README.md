@@ -22,6 +22,12 @@ Banks, payment providers and other actors in the financial world can do a quick 
 - The company number can only exists of numbers (uint).
 - All names should be entered in capital letters (see NatSpec information in the .sol file).
 
+## Install dependencies:
+This dapp uses following dependencies:
+- truffle/hdwallet-provider: ^1.7.0
+- dotenv: ^10.0.0
+- node: ^17.1.0
+
 ## How to use this dapp?
 
 1.  Clone this repo and run `npm install` to install all dependencies.
