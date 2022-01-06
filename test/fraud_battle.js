@@ -99,8 +99,7 @@ contract("fraudBattle", function (accounts) {
       const { error, reason } = getErrorObj(e.data);
       assert.equal(error, "revert");
       assert.equal(reason, ERR_NOT_ENOUGH_SIGNATURES);
-    }
-    
+    }    
     
   });
 
