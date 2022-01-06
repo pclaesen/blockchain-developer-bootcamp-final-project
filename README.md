@@ -35,7 +35,7 @@ This dapp uses following dependencies:
 3.  Launch a new workspace on Ganache.
 4.  Create a new `.env` file in the root folder of the project.
 5.  Copy the mnemonic phrase from Ganache and paste it in the `.env` file like so:
-`MNEMONIC = " <insert mnemonic here, do not delete the ""> "`
+`MNEMONIC = "insert mnemonic here, do not delete the "" "`
 6.  Make sure to check if Ganache runs on port 8545. If it runs on another port (7545 for example), modify your `truffle-config.js` like so:
 ```development: {
      host: "127.0.0.1",     // Localhost (default: none)
@@ -43,22 +43,24 @@ This dapp uses following dependencies:
      network_id: "*",       // Any network (default: none)
     },
 ```
-7.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
+7. Deploy the contract with ´truffle migrate --network development´.
+8. Grab the contract address after the deployment has finished and paste it on line 7 of `Connected.js`: `const contractAddress = "paste contract address here"`.
+9.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
     -  Owner/government (imported account 1)
     -  HSBC (imported account 2)
     -  CONSENSYS (imported account 3)
 
-8.  Copy the wallet address of all 3 accounts to notepad.
-9.  In your Metamask wallet, make sure you are using the 'Owner/government' account.
-10. Cd into the `fraudbattle` folder and install the necessary dependencies (like React) with `npm install`. 
-11. Start the dapp with `npm start`.
-12.  Go to the new tab that was just opened, and connect your wallet.
-13. Add a new bank called `HSBC` with the appropriate wallet address (account 2) and wait for the transaction to complete.
-14. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details and wait for the transaction to complete.
-15. While still using the owner/government account (account 1), confirm the combination of company number and bank account number of the business you just added.
-16. Switch to the account `HSBC` (account 2) and confirm the combination of company number and bank account number.
-17. Switch to the account `CONSENSYS` (account 3) and confirm the combination of company number and bank account number.
-18. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
+10. Copy the wallet address of all 3 accounts to notepad.
+11. Cd into the `fraudbattle` folder and install the necessary dependencies (like React) with `npm install`. 
+12. Start the dapp with `npm start`.
+13. Go to the new tab that was just opened.
+14. In your Metamask wallet, connect to the `localhost` network, make sure to select the 'Owner/government' account and connect the account to the dapp.
+15. Add a new bank called `HSBC` with the appropriate wallet address (account 2), click the `Confirm` button and after that the grey `Add bank on-chain` button. Wait for the transaction to complete.
+16. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details and wait for the transaction to complete. Make sure to use `HSBC` as bank.
+17. While still using the owner/government account (account 1), confirm the combination of company number and bank account number of the business you just added.
+18. Switch to the account `HSBC` (account 2) and confirm the combination of company number and bank account number.
+19. Switch to the account `CONSENSYS` (account 3) and confirm the combination of company number and bank account number.
+20. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
 
 ## Ideas / things to add
