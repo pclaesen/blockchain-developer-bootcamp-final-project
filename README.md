@@ -34,7 +34,7 @@ Banks, payment providers and other actors in the financial world can do a quick 
 This dapp uses following dependencies:
 - truffle/hdwallet-provider: ^1.7.0
 - dotenv: ^10.0.0
-- node: ^17.1.0
+- node: ^16.13.0
 - ethers.js
 - React
 
