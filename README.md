@@ -29,13 +29,14 @@ Banks, payment providers and other actors in the financial world can do a quick 
 | Build    | Contains json files for imported contracts and migration files |
 | Contracts | Contains migration and fraudBattle main contract |
 | Migrations | Javascript files to handle migrations |
-| Test | Contains the units tests |
+| Test | Contains the unit tests |
 ## Install dependencies:
 This dapp uses following dependencies:
 - truffle/hdwallet-provider: ^1.7.0
 - dotenv: ^10.0.0
 - node: ^17.1.0
 - ethers.js
+- React
 
 ## How to use this dapp?
 
@@ -59,7 +60,7 @@ This dapp uses following dependencies:
     -  HSBC (imported account 2)
     -  CONSENSYS (imported account 3)
 
-10. Copy the wallet address of all 3 accounts to notepad.
+10. Copy the wallet address of all 3 accounts to a text editor.
 11. Cd into the `fraudbattle` folder and install the necessary dependencies (like React) with `npm install`. 
 12. Start the dapp with `npm start`.
 13. Go to the new tab that was just opened.
