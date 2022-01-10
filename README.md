@@ -55,7 +55,7 @@ This dapp uses following dependencies:
 ```
 7. Go to Metamask and change the network to 'Localhost: 8545' (or your custom port number, see #6).
 8. Deploy the contract with ´truffle migrate --network development´.
-9. Grab the contract address after the deployment has finished, go the the directory `fraudbattle` and paste it on line 7 of the file `Connected.js`: `const contractAddress = "paste contract address here"`.
+9. Grab the contract address after the deployment has finished, go the the directory `fraudbattle\src\` and paste it on line 7 of the file `Connected.js`: `const contractAddress = "paste contract address here"`.
 10. Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
     -  Owner/government (imported account 1)
     -  HSBC (imported account 2)
