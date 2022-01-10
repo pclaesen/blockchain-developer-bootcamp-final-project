@@ -460,13 +460,8 @@ const Connected = () => {
                 Add bank:<br />
                 <form onSubmit={handleSubmitBankOwner}>
                 
-<<<<<<< HEAD
-                <input type="text" className="addressBankAddedByOwner" value={addressBankAddedByOwnerTemp} placeholder="Bank wallet address" onChange={handleChangeAddressBankAddedByOwner} />
-                    <input type="text" className="bankName" value={bankNameAddedByOwnerTemp} placeholder="Insert bank name" onChange={handleChangeBankNameAddedbyOwner} />                             
-=======
                     <input type="text" className="addressBankAddedByOwner" value={addressBankAddedByOwnerTemp} placeholder="Bank wallet address" onChange={handleChangeAddressBankAddedByOwner} />
                     <input type="text" className="bankName" value={bankNameAddedByOwnerTemp} placeholder="Insert bank name" onChange={handleChangeBankNameAddedbyOwner} />              
->>>>>>> ff3d9b910d1cb9ec8769a36f339c7a32b7048dce
 
                     <button type="submit">Confirm</button>
                     
