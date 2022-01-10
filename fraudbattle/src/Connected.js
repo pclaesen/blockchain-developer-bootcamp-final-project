@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { fraudBattleAbi } from "./abi/abi";
 
 
-const contractAddress = "0x3bc2a3d03520056aadaAbF23A71183037DE0def1";
+const contractAddress = "0x0786CC251432A0c6A5bc0D20a263e70116c820D5";
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
@@ -39,10 +39,6 @@ const ShowAddedBusiness = ({addressBusinessAddedByBGovFinal, businessNameFinal, 
 };
 
 const Connected = () => {
-
-    // useEffect(() => {
-    //     getAccounts();
-    // })
 
     //Reload screen on account or network change
     window.ethereum.on('accountsChanged', (accounts) => {
@@ -464,8 +460,8 @@ const Connected = () => {
                 Add bank:<br />
                 <form onSubmit={handleSubmitBankOwner}>
                 
-                    <input type="text" className="bankName" value={bankNameAddedByOwnerTemp} placeholder="Insert bank name" onChange={handleChangeBankNameAddedbyOwner} />
-                    <input type="text" className="addressBankAddedByOwner" value={addressBankAddedByOwnerTemp} placeholder="Bank wallet address" onChange={handleChangeAddressBankAddedByOwner} />               
+                <input type="text" className="addressBankAddedByOwner" value={addressBankAddedByOwnerTemp} placeholder="Bank wallet address" onChange={handleChangeAddressBankAddedByOwner} />
+                    <input type="text" className="bankName" value={bankNameAddedByOwnerTemp} placeholder="Insert bank name" onChange={handleChangeBankNameAddedbyOwner} />                             
 
                     <button type="submit">Confirm</button>
                     
