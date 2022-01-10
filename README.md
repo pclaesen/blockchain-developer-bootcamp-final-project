@@ -40,7 +40,7 @@ This dapp uses following dependencies:
 
 ## How to use this dapp?
 
-1.  Clone this repo and run `npm install` to install all dependencies.
+1.  Create a new directory, clone this repo and run `npm install` to install all dependencies.
 2.  Install Metamask and log in
 3.  Launch a new workspace on Ganache.
 4.  Create a new `.env` file in the root folder of the project.
@@ -68,9 +68,9 @@ This dapp uses following dependencies:
 15. Add a new bank called `HSBC` with the appropriate wallet address (account 2), click the `Confirm` button and after that the grey `Add bank on-chain` button. Wait for the transaction to complete.
 16. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details (only numbers for the company number!) and wait for the transaction to complete. Make sure to use `HSBC` as bank.
 17. Go to section B.
-18. While still using the owner/government account (account 1), confirm the combination of company number and bank account number of the business you just added.
-19. Switch to the account `HSBC` (account 2) and confirm the combination of company number and bank account number.
-20. Switch to the account `CONSENSYS` (account 3) and confirm the combination of company number and bank account number.
+18. While still using the owner/government account (account 1), click the greyconfirm the combination of company number and bank account number of the business you just added.
+19. Switch to the account `HSBC` (account 2), click the grey 'Bank' button and confirm the combination of company number and bank account number.
+20. Switch to the account `CONSENSYS` (account 3), click the grey 'Business' button and confirm the combination of company number and bank account number.
 21. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
 
