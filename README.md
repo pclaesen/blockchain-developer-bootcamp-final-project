@@ -53,25 +53,26 @@ This dapp uses following dependencies:
      network_id: "*",       // Any network (default: none)
     },
 ```
-7. Deploy the contract with ´truffle migrate --network development´.
-8. Grab the contract address after the deployment has finished and paste it on line 7 of `Connected.js`: `const contractAddress = "paste contract address here"`.
-9.  Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
+7. Go to Metamask and change the network to 'Localhost: 8545' (or your custom port number, see #6).
+8. Deploy the contract with ´truffle migrate --network development´.
+9. Grab the contract address after the deployment has finished and paste it on line 7 of `Connected.js`: `const contractAddress = "paste contract address here"`.
+10. Copy the private key of the first 3 accounts and import these 3 accounts in Metamask ([Click here for instructions](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)). For ease of use, you should rename the 3 imported accounts like so:
     -  Owner/government (imported account 1)
     -  HSBC (imported account 2)
     -  CONSENSYS (imported account 3)
 
-10. Copy the wallet address of all 3 accounts to a text editor.
-11. Cd into the `fraudbattle` folder and install the necessary dependencies (like React) with `npm install`. 
-12. Start the dapp with `npm start`.
-13. Go to the new tab that was just opened.
-14. In your Metamask wallet, connect to the `localhost` network, make sure to select the 'Owner/government' account and connect the account to the dapp.
-15. Add a new bank called `HSBC` with the appropriate wallet address (account 2), click the `Confirm` button and after that the grey `Add bank on-chain` button. Wait for the transaction to complete.
-16. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details (only numbers for the company number!) and wait for the transaction to complete. Make sure to use `HSBC` as bank.
-17. Go to section B.
-18. While still using the owner/government account (account 1), click the greyconfirm the combination of company number and bank account number of the business you just added.
-19. Switch to the account `HSBC` (account 2), click the grey 'Bank' button and confirm the combination of company number and bank account number.
-20. Switch to the account `CONSENSYS` (account 3), click the grey 'Business' button and confirm the combination of company number and bank account number.
-21. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
+11. Copy the wallet address of all 3 accounts to a text editor.
+12. Cd into the `fraudbattle` folder and install the necessary dependencies (like React) with `npm install`. 
+13. Start the dapp with `npm start`.
+14. Go to the new tab that was just opened.
+15. In your Metamask wallet, connect to the `localhost` network, make sure to select the 'Owner/government' account and connect the account to the dapp.
+16. Add a new bank called `HSBC` with the appropriate wallet address (account 2), click the `Confirm` button and after that the grey `Add bank on-chain` button. Wait for the transaction to complete.
+17. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details (only numbers for the company number!) and wait for the transaction to complete. Make sure to use `HSBC` as bank.
+18. Go to section B.
+19. While still using the owner/government account (account 1), click the greyconfirm the combination of company number and bank account number of the business you just added.
+20. Switch to the account `HSBC` (account 2), click the grey 'Bank' button and confirm the combination of company number and bank account number.
+21. Switch to the account `CONSENSYS` (account 3), click the grey 'Business' button and confirm the combination of company number and bank account number.
+22. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
 
 ## Ideas / things to add
