@@ -8,7 +8,9 @@ const contractAddress = "0x0786CC251432A0c6A5bc0D20a263e70116c820D5";
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
+
 const myContract = new ethers.Contract(contractAddress, fraudBattleAbi, signer);
+
 
 const ShowBankAccount = ({ returnedBankAccount }) => {
     useEffect(() => {
@@ -18,6 +20,8 @@ const ShowBankAccount = ({ returnedBankAccount }) => {
     
     return <div>It is safe to use bank account {returnedBankAccount}</div>;
 };
+
+
 
 const ShowAddedBusiness = ({addressBusinessAddedByBGovFinal, businessNameFinal, bankAccountAddedByGovFinal, businessNumberAddedByGovFinal, bankNameAddedByGovFinal}) => {
     useEffect(() => {
@@ -431,10 +435,12 @@ const Connected = () => {
         let contractWithSigner = myContract.connect(signer);
         let verifiedBankAccount = await contractWithSigner.getValidBankAccount(verifiedCompanyNumber);
 
-        // console.log(verifiedBankAccount); 
+        
         setReturnedBankAccount(verifiedBankAccount);
         
     }
+
+   
   
       
 
@@ -448,10 +454,12 @@ const Connected = () => {
         )
     } 
     else {
+        
         return(
         <>
             <div className='top'>
                 Wallet connected, thank you.<br />
+                Your account is {account} .<br />
                 <strong>Section A: Owner/government only</strong><br />
                 <br />
                 Only the government/owner can add a business and a bank with the appropriate records on-chain. To do that, use the forms below.<br />
@@ -467,9 +475,6 @@ const Connected = () => {
                     
 
                 </form>
-                <br />
-                As owner, you will add bank {bankNameAddedByOwner} with address {addressBankAddedByOwner}.<br />
-                Are you sure you want to add this bank?<br />
                 <button className='addBankButton' onClick={addBank}>Add bank on-chain</button><br />
                 <br />
                 <br />
@@ -485,9 +490,6 @@ const Connected = () => {
                     
 
                 </form>
-                <br />
-                 You will add this business: {addressBusinessAddedByBGov}, {businessName}, {bankAccountAddedByGov}, {businessNumberAddedByGov} and {bankNameAddedByGov}.<br />
-                <br />
                 <button className='businessButtonAdd' onClick={addBusinessAsGovernment}>Add business on-chain</button><br />
                 <ShowAddedBusiness addressBusinessAddedByBGovFinal={addressBusinessAddedByBGovFinal} businessNameFinal={businessNameFinal} bankAccountAddedByGovFinal={bankAccountAddedByGovFinal} businessNumberAddedByGovFinal={businessNumberAddedByGovFinal} bankNameAddedByGovFinal={bankNameAddedByGovFinal}/>
                 {/* addressBusinessAddedByBGov, businessName, bankAccountAddedByGov, businessNumberAddedByGov, bankNameAddedByGov */}
