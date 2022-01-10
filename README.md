@@ -22,11 +22,20 @@ Banks, payment providers and other actors in the financial world can do a quick 
 - The company number can only exists of numbers (uint).
 - All names should be entered in capital letters (see NatSpec information in the .sol file).
 
+
+## Directory structure:
+| Folder   | Description |
+| -------- | ----------- |
+| Build    | Contains json files for imported contracts and migration files |
+| Contracts | Contains migration and fraudBattle main contract |
+| Migrations | Javascript files to handle migrations |
+| Test | Contains the units tests |
 ## Install dependencies:
 This dapp uses following dependencies:
 - truffle/hdwallet-provider: ^1.7.0
 - dotenv: ^10.0.0
 - node: ^17.1.0
+- ethers.js
 
 ## How to use this dapp?
 
