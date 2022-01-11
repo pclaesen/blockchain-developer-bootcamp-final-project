@@ -33,7 +33,7 @@ class App extends React.Component {
           this.setState({
             account          
           });
-          console.log(this.state.account);
+          
         };
         fetchAccounts();
 
