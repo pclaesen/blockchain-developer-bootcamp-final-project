@@ -1,58 +1,29 @@
-import React from 'react';
-import { ethers } from 'ethers';
+import React from "react";
 import ReactDOM from "react-dom";
 
-
-
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner()
-
-function getAccount() {
-    let accounts = provider.listAccounts()
-    .then(result => console.log(result))
-    .catch(error => console.log(error))
+async function requestAccounts() {
+    await window.ethereum.request({method: 'eth_requestAccounts'});
 }
 
-async function connectWallet() {
-    await provider.send("eth_requestAccounts", []);
-}
-
-const Connected = () => {
-
-    
+const NotConnected = () => {
     
 
-    // if (typeof window.ethereum !== 'undefined') {
-  
         return(
             <div>
-                <button className="connectButton" onClick={getAccount}>Console log account info</button><br />
-                <button className="connectButton" onClick={connectWallet}>Connect wallet</button>
-                
-
-
-
+                <button onClick={requestAccounts}>Connect your wallet</button>
             </div>
         )
-    // }
 
-    //  else {
-    //     console.log('Please install MetaMask!');
-    //     <button className="connectButton" onClick={window.ethereum.enable}>Connect wallet</button>
+
+
+
         
-    //     alert('Please install a wallet');
-
-    //     return(
-    //         <div>
-    //         "Please connect MM"
-    //         </div>
-
-    //     )
     
-    // }
-    
-
-
 
 }
-export default Connected;
+
+
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<NotConnected />, rootElement);
+export default NotConnected;

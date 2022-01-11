@@ -70,8 +70,8 @@ This dapp uses following dependencies:
 17. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details (only numbers for the company number!) and wait for the transaction to complete. Make sure to use `HSBC` as bank.
 18. Go to section B.
 19. While still using the owner/government account (account 1), click the greyconfirm the combination of company number and bank account number of the business you just added.
-20. Switch to the account `HSBC` (account 2), click the grey 'Bank' button and confirm the combination of company number and bank account number.
-21. Switch to the account `CONSENSYS` (account 3), click the grey 'Business' button and confirm the combination of company number and bank account number.
+20. Switch to the account `HSBC` (account 2), connect to the dapp again, click the grey 'Bank' button and confirm the combination of company number and bank account number.
+21. Switch to the account `CONSENSYS` (account 3), connect to dapp site again,  click the grey 'Business' button and confirm the combination of company number and bank account number.
 22. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
 

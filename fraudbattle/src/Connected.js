@@ -23,6 +23,8 @@ const ShowBankAccount = ({ returnedBankAccount }) => {
 
 
 
+
+
 const ShowAddedBusiness = ({addressBusinessAddedByBGovFinal, businessNameFinal, bankAccountAddedByGovFinal, businessNumberAddedByGovFinal, bankNameAddedByGovFinal}) => {
     useEffect(() => {
                
@@ -42,20 +44,26 @@ const ShowAddedBusiness = ({addressBusinessAddedByBGovFinal, businessNameFinal, 
     }
 };
 
+
+
 const Connected = () => {
+    
+
+    
 
     //Reload screen on account or network change
     window.ethereum.on('accountsChanged', (accounts) => {
         window.location.reload();
         console.log("Reloaded account changed");
-        handleChangeConnection();
+        getTheAccounts();
+        
         
       });
 
-    window.ethereum.on('chainChanged', (accounts) => {
-      window.location.reload();
-      console.log("Reloaded chain changed");
-      handleChangeConnection();
+    window.ethereum.on('chainChanged', (chainId) => {
+        window.location.reload()
+        console.log("Reloaded chain changed");
+        getTheAccounts();
     });
 
     const[account, setAccount] = useState('');
@@ -97,19 +105,19 @@ const Connected = () => {
     const[businessNumberAddedByGovFinal, setBusinessNumberAddedByGovFinal] = useState('');
     const[bankNameAddedByGovFinal, setBankNameAddedByGovFinal] = useState('');
 
+    async function getTheAccounts() {
+        let accounts = await provider.listAccounts();
+        setAccount(accounts[0]);
+    } 
 
-    async function getAccounts() {
-        const accounts = await provider.listAccounts();
-        let accountTemp = accounts[0];
-        // console.log(accountTemp);
-        setAccount(accountTemp);
-                        
-    }
     
-    const handleChangeConnection = () => {
-        getAccounts();
-        
-      };
+    useEffect(() => {
+        getTheAccounts();
+        return () => {
+            setAccount({});
+         }; 
+    }, [])
+    
 
 
 
@@ -438,23 +446,7 @@ const Connected = () => {
         
         setReturnedBankAccount(verifiedBankAccount);
         
-    }
-
-   
-  
-      
-
-    if (account.length < 1) {
-  
-        return(
-            <div>
-                Please connect your wallet to start using the app<br/>
-                <button className="connectButton" onClick={handleChangeConnection()}>Connect wallet</button>
-            </div>
-        )
-    } 
-    else {
-        
+    }      
         return(
         <>
             <div className='top'>
@@ -555,10 +547,11 @@ const Connected = () => {
 
         
 
-    }
+    // }
  
 
 }
 
-
+const rootElement = document.getElementById("root");
+ReactDOM.render(<Connected />, rootElement);
 export default Connected;

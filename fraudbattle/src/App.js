@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import { ethers } from 'ethers';
+import { ethers } from 'ethers';
 import Connected from './Connected';
 import NotConnected from './NotConnected';
-
+const provider = new ethers.providers.Web3Provider(window.ethereum)
 
 
 class App extends React.Component {
@@ -27,17 +27,17 @@ class App extends React.Component {
         console.log("Reloaded chain changed");
       });
 
-    //   if (typeof window.ethereum !== 'undefined') {
-    //     const fetchAccounts = async () => {
-    //       const account = await provider.listAccounts();
-    //       this.setState({
-    //         account          
-    //       });
-    //       console.log(this.state.account);
-    //     };
-    //     fetchAccounts();
+      if (typeof window.ethereum !== 'undefined') {
+        const fetchAccounts = async () => {
+          const account = await provider.listAccounts();
+          this.setState({
+            account          
+          });
+          console.log(this.state.account);
+        };
+        fetchAccounts();
 
-    //   }
+      }
      
       
       
@@ -46,21 +46,19 @@ class App extends React.Component {
   
     
     render() {
-      if (typeof window.ethereum === 'undefined') {
-        return(
-                
-          <div className="installWallet">
-            Welcome to fraudBattle<br/>
-            If you haven't installed a compatible wallet, click this button:<br/>
-            <button onClick={()=> window.open("https://metamask.io", "_blank")}>Download Metamask</button>    
-          </div>
-      )} else {
-        
+      if (this.state.account.length > 0) {
         return(
           <div className="mainWindow">
             <Connected />
         
           </div>
+      )} else {
+        
+          return(
+                          
+            <div>
+              <NotConnected />    
+            </div>
         )}
 
 
