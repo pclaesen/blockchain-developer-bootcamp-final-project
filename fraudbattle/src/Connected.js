@@ -503,8 +503,9 @@ const Connected = () => {
  
                 <form onSubmit={handleSubmit}>
                 
+                    <input type="text" className="bankAccount" value={bankAccountTemp} placeholder="Bank account number" onChange={handleChangeBankAccount} />
                     <input type="text" className="companyNumber" value={companyNumberTemp} placeholder="Insert company number" onChange={handleChangeCompanyNumber} />
-                    <input type="text" className="bankAccount" value={bankAccountTemp} placeholder="Bank account number" onChange={handleChangeBankAccount} />               
+                                   
 
                     <button type="submit">Confirm</button>
 

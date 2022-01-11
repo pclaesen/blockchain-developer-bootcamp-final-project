@@ -62,27 +62,6 @@ class App extends React.Component {
         )}
 
 
-
-
-
-
-        
-      
-     
-    
-        // if (window.ethereum !== 'undefined') {
-            
-        //     return(
-        //         <Connected />            
-        //     )
-        //     } else {
-        //       alert("Please install a compatible wallet");
-        //       return(            
-        //         <NotConnected />              
-        //       )
-            
-              
-        //     }
     
 
     } 
