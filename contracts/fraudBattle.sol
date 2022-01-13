@@ -11,6 +11,12 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract fraudBattle is Ownable, AccessControl {
 
+  event bankAdded(address bankAddress, string bankName);
+  event businessAdded(address businessAddress, string businessName, string bankAccount, uint companyNumber, string bankName);
+  event governmentSigned(uint companyNumber,string bankAccount);
+  event bankSigned(uint companyNumber,string bankAccount);
+  event businessSigned(uint companyNumber,string bankAccount);
+
   constructor () public {
     _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
   }
@@ -74,6 +80,8 @@ contract fraudBattle is Ownable, AccessControl {
     bankArray.push(banksData);
     grantRole(bank, _address);
     isBankName[_registeredName] = true;
+
+    emit bankAdded(_address, _registeredName);
   }
 
 
@@ -89,6 +97,8 @@ contract fraudBattle is Ownable, AccessControl {
     Businesses memory busData = Businesses(_address, _name, _bankAccount, _companyNumber, _bankName);
     businessesArray.push(busData);
     grantRole(business, _address);
+
+    emit businessAdded(_address, _name, _bankAccount, _companyNumber, _bankName);
   }
 
   /// @notice general: The 3 actors need to sign a transaction to add the bank account and business number to a new array. This new public array can be called with a JS call.
@@ -105,6 +115,8 @@ contract fraudBattle is Ownable, AccessControl {
       require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)), "Unknown companynumber or bank account");
         isBankSigned[businessesArray[i]._companyNumber] = true;
      }
+
+     emit bankSigned(_providedCompanyNumber, _providedBankAccount);
 
   }
 
@@ -123,6 +135,8 @@ contract fraudBattle is Ownable, AccessControl {
         isBusSigned[businessesArray[i]._companyNumber] = true;
     }
 
+    emit businessSigned(_providedCompanyNumber, _providedBankAccount);
+
   }
 
   /// @notice general: for the sake of simplicity, we pretend that the contract owner is able to sign as 'the government'.
@@ -137,6 +151,8 @@ contract fraudBattle is Ownable, AccessControl {
       require (_providedCompanyNumber == businessesArray[i]._companyNumber && keccak256(abi.encodePacked(_providedBankAccount)) == keccak256(abi.encodePacked(businessesArray[i]._bankAccount)), "Unknown companynumber or bank account");
         isGovSigned[businessesArray[i]._companyNumber] = true;
       }
+
+    emit governmentSigned(_providedCompanyNumber, _providedBankAccount);
 
   }
 
