@@ -30,7 +30,7 @@ Banks, payment providers and other actors in the financial world can do a quick 
 | Contracts | Contains migration and fraudBattle main contract |
 | Migrations | Javascript files to handle migrations |
 | Test | Contains the unit tests |
-## Install dependencies:
+## Dependencies:
 This dapp uses following dependencies:
 - truffle/hdwallet-provider: ^1.7.0
 - dotenv: ^10.0.0
@@ -74,6 +74,8 @@ This dapp uses following dependencies:
 21. Switch to the account `CONSENSYS` (account 3), connect to dapp site again,  click the grey 'Business' button and confirm the combination of company number and bank account number.
 22. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
+## Tests
+You can run the unit tests by using the `truffle test` command.
 
 ## Screencast
 The screencast can be viewed [here](https://youtu.be/vmz9awSbeHo).
