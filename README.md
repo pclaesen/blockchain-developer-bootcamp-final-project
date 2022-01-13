@@ -76,7 +76,7 @@ This dapp uses following dependencies:
 
 
 ## Screencast
-The screencast can be viewed ([here](https://youtu.be/vmz9awSbeHo)).
+The screencast can be viewed [here](https://youtu.be/vmz9awSbeHo).
 
 ## Ideas / things to add
 
