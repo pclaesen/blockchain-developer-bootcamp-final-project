@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { fraudBattleAbi } from "./abi/abi";
 
 
-const contractAddress = "0x0786CC251432A0c6A5bc0D20a263e70116c820D5";
+const contractAddress = "0xF4b39Bc3faC512838c11B1A5D5Bf5214977752B4";
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
