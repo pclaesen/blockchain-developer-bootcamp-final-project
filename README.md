@@ -65,7 +65,7 @@ This dapp uses following dependencies:
 12. Cd into the `fraudbattle` folder and install the necessary dependencies (like React) with `npm install`. 
 13. Start the dapp with `npm start`.
 14. Go to the new tab that was just opened.
-15. In your Metamask wallet, connect to the `localhost` network, make sure to select the 'Owner/government' account and connect the account to the dapp.
+15. In your Metamask wallet, connect to the `localhost` network, make sure to select the 'Owner/government' account and connect the account to the dapp. If needed, manually connect Metamask to the dapp.
 16. Add a new bank called `HSBC` with the appropriate wallet address (account 2), click the `Confirm` button and after that the grey `Add bank on-chain` button. Wait for the transaction to complete.
 17. Add a new business called `CONSENSYS` with the appropriate wallet address (account 3) and other details (only numbers for the company number!) and wait for the transaction to complete. Make sure to use `HSBC` as bank.
 18. Go to section B.
@@ -75,10 +75,13 @@ This dapp uses following dependencies:
 22. You can now query the on-chain records and retreive the confirmed bank account number for the business you added.
 
 
+## Screencast
+The screencast can be viewed ([here](https://youtu.be/vmz9awSbeHo)).
+
 ## Ideas / things to add
 
  - Multisig wallets
  - Ability for end-users/contracts to verify the official wallet address of a business.
 
-## Public Ethereum Account
+## Public Ethereum Account for NFT
 0xd97fA6CCc45D404fD369D3aDfD440F5e8Ff85477
