@@ -78,6 +78,11 @@ This dapp uses following dependencies:
 ## Screencast
 The screencast can be viewed [here](https://youtu.be/vmz9awSbeHo).
 
+## Online version
+The online version of this dapp can be found at https://fraudbattle.netlify.app/.
+Because only the contract owner/government can add a bank or business, most of the functionality is disabled in the online version.
+You can however lookup the verified bank account number for the business with company number 55667788. These records were already added to the smart contract.
+
 ## Ideas / things to add
 
  - Multisig wallets
