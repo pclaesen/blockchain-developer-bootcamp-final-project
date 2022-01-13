@@ -22,7 +22,7 @@ module.exports = {
       confirmations: 2, // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: true,
-      from: "0x2D74E2A48060b01819bfCa3e599BbAa9110591Ce" // Skip dry run before migrations? (default: false for public nets )
+      from: "0xbCb90664f406b797Ff702920482B3B22E0F6624e" // Skip dry run before migrations? (default: false for public nets )
     }
   },
 
